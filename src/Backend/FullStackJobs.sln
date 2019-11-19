@@ -5,9 +5,31 @@ VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FullStackJobs.AuthServer", "FullStackJobs.AuthServer", "{4AD61EC0-54CA-4FDC-A10C-BE8415EEDE65}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackJobs.AuthServer", "FullStackJobs.AuthServer\FullStackJobs.AuthServer\FullStackJobs.AuthServer.csproj", "{084881A5-13D6-4189-B2D2-5B7088445DF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackJobs.AuthServer.Infrastructure", "FullStackJobs.AuthServer\FullStackJobs.AuthServer.Infrastructure\FullStackJobs.AuthServer.Infrastructure.csproj", "{47AE068F-C016-4AF0-9B95-BB17A1A6ECBC}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{084881A5-13D6-4189-B2D2-5B7088445DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{084881A5-13D6-4189-B2D2-5B7088445DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{084881A5-13D6-4189-B2D2-5B7088445DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{084881A5-13D6-4189-B2D2-5B7088445DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47AE068F-C016-4AF0-9B95-BB17A1A6ECBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47AE068F-C016-4AF0-9B95-BB17A1A6ECBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47AE068F-C016-4AF0-9B95-BB17A1A6ECBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47AE068F-C016-4AF0-9B95-BB17A1A6ECBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{084881A5-13D6-4189-B2D2-5B7088445DF0} = {4AD61EC0-54CA-4FDC-A10C-BE8415EEDE65}
+		{47AE068F-C016-4AF0-9B95-BB17A1A6ECBC} = {4AD61EC0-54CA-4FDC-A10C-BE8415EEDE65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B6B6E58-100E-4F42-A015-9D70BC0F256F}
