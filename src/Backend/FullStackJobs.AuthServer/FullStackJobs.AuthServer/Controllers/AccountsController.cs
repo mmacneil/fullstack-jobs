@@ -20,7 +20,7 @@ namespace FullStackJobs.AuthServer.Controllers
         }
 
         [Route("api/[controller]")]
-        public async Task<IActionResult> Post(SignupRequest model)
+        public async Task<IActionResult> Post([FromBody]SignupRequest model)
         {
             if (!ModelState.IsValid)
             {
