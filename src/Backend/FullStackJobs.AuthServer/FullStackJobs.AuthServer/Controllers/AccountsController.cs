@@ -20,7 +20,7 @@ namespace FullStackJobs.AuthServer.Controllers
         }
 
         [Route("api/[controller]")]
-        public async Task<IActionResult> Post([FromBody]SignupRequest model)
+        public async Task<IActionResult> Post(SignupRequest model)
         {
             if (!ModelState.IsValid)
             {
@@ -38,11 +38,12 @@ namespace FullStackJobs.AuthServer.Controllers
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", model.Role));
 
+            // ToDo: resotre when signup view introduced in client dev
             // Insert in entity table
-            var commandText = $"INSERT {model.Role + "s"} (Id,Created,FullName) VALUES (@Id,getutcdate(),@FullName)";
-            var id = new SqlParameter("@Id", user.Id);
-            var name = new SqlParameter("@FullName", user.FullName);
-            await _appIdentityDbContext.Database.ExecuteSqlRawAsync(commandText, id, name);
+            // var commandText = $"INSERT {model.Role + "s"} (Id,Created,FullName) VALUES (@Id,getutcdate(),@FullName)";
+            // var id = new SqlParameter("@Id", user.Id);
+            // var name = new SqlParameter("@FullName", user.FullName);
+            // await _appIdentityDbContext.Database.ExecuteSqlRawAsync(commandText, id, name);
 
             return Ok(new SignupResponse(user, model.Role));
         }         
