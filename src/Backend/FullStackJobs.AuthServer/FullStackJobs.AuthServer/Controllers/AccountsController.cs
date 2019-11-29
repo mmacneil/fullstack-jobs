@@ -38,7 +38,7 @@ namespace FullStackJobs.AuthServer.Controllers
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", model.Role));
 
-            // ToDo: resotre when signup view introduced in client dev
+            // ToDo: We'll resotre this later when signup view and employer/applicant entities are implemented 
             // Insert in entity table
             // var commandText = $"INSERT {model.Role + "s"} (Id,Created,FullName) VALUES (@Id,getutcdate(),@FullName)";
             // var id = new SqlParameter("@Id", user.Id);

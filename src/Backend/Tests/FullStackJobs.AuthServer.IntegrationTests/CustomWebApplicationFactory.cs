@@ -49,16 +49,10 @@ namespace FullStackJobs.AuthServer.IntegrationTests
                     // Ensure the database is created.
                     db.Database.EnsureCreated();
 
-                    try
-                    {
-                        // Seed the database with test data.
-                        //Utilities.InitializeDbForTests(db);
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.LogError(ex, "An error occurred seeding the " +
-                                            "database with test messages. Error: {Message}", ex.Message);
-                    }
+                    // Other setup steps like seeding the database can go here...
+
+                    // Seed the database with test data.
+                    //Utilities.InitializeDbForTests(db);                
                 }
             });
         }

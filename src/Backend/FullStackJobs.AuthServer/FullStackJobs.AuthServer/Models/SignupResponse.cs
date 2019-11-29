@@ -9,6 +9,8 @@ namespace FullStackJobs.AuthServer.Models
         public string Email { get; set; }
         public string Role { get; set; }
 
+        public SignupResponse() { }
+
         public SignupResponse(AppUser user, string role)
         {
             Id = user.Id;
