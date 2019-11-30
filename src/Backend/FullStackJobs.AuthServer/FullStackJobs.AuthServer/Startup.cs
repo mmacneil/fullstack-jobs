@@ -60,6 +60,7 @@ namespace FullStackJobs.AuthServer
             });
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             

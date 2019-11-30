@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity; 
 using FullStackJobs.AuthServer.Models;
 using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+using FullStackJobs.AuthServer.Models.ViewModels;
 
 namespace FullStackJobs.AuthServer.Controllers
 {
@@ -49,18 +48,9 @@ namespace FullStackJobs.AuthServer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Login(string returnUrl)
+        public async Task<IActionResult> Login()
         {
-            // build a model so we know what to show on the login page
-           /* var vm = await BuildLoginViewModelAsync(returnUrl);
-
-            if (vm.IsExternalLoginOnly)
-            {
-                // we only have one option for logging in and it's an external provider
-                return RedirectToAction("Challenge", "External", new { provider = vm.ExternalLoginScheme, returnUrl });
-            }*/
-
-            return View();
-        }
+            return View(new LoginViewModel());
+        }       
     }
 }
