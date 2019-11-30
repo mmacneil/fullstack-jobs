@@ -46,6 +46,21 @@ namespace FullStackJobs.AuthServer.Controllers
             // await _appIdentityDbContext.Database.ExecuteSqlRawAsync(commandText, id, name);
 
             return Ok(new SignupResponse(user, model.Role));
-        }         
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Login(string returnUrl)
+        {
+            // build a model so we know what to show on the login page
+           /* var vm = await BuildLoginViewModelAsync(returnUrl);
+
+            if (vm.IsExternalLoginOnly)
+            {
+                // we only have one option for logging in and it's an external provider
+                return RedirectToAction("Challenge", "External", new { provider = vm.ExternalLoginScheme, returnUrl });
+            }*/
+
+            return View();
+        }
     }
 }
