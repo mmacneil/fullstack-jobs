@@ -2,11 +2,9 @@
 
 <div class="row">
 
-    @if (Model.EnableLocalLogin)
-    {
         <div class="col-sm-6">
             <div>
-                <h2>Please Login</h2>
+                <h2>Local Login</h2>
 
                 <form asp-route="Login" class="form-signin mt-4">
                     <input type="hidden" asp-for="ReturnUrl" />
@@ -34,8 +32,9 @@
                             <button class="btn btn-default" name="button" value="cancel">Cancel</button>
                         </div>
                     </fieldset>
+                    <partial name="_ValidationSummary" />
                 </form>
             </div>
         </div>
-    }
+  
 </div>

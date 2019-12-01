@@ -40,6 +40,6 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
             Assert.Equal(email, response.Email);
             Assert.Equal(role, response.Role);
             Assert.True(Guid.TryParse(response.Id, out _));
-        }
+        }        
     }
 }

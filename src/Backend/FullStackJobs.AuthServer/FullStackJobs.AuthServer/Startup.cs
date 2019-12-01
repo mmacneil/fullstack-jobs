@@ -1,5 +1,7 @@
 using FullStackJobs.AuthServer.Extensions;
 using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
+using FullStackJobs.AuthServer.Infrastructure.Services;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -10,27 +12,63 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Net;
 
 namespace FullStackJobs.AuthServer
 {
     public class Startup
     {
+        private const string _connectionStringName = "Default";
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(_connectionStringName)));
 
             services.AddIdentity<AppUser, IdentityRole>()
             .AddEntityFrameworkStores<AppIdentityDbContext>();
+
+            var builder = services.AddIdentityServer()
+              // this adds the operational data from DB (codes, tokens, consents)
+              .AddOperationalStore(options =>
+              {
+                  options.ConfigureDbContext = builder => builder.UseSqlServer(Configuration.GetConnectionString(_connectionStringName));
+                    // this enables automatic token cleanup. this is optional.
+                    options.EnableTokenCleanup = true;
+                  options.TokenCleanupInterval = 30; // interval in seconds
+                })
+              //.AddInMemoryPersistedGrants()
+              .AddInMemoryIdentityResources(Config.GetIdentityResources())
+              .AddInMemoryApiResources(Config.GetApiResources())
+              .AddInMemoryClients(Config.GetClients())
+              .AddAspNetIdentity<AppUser>();
+
+            if (Environment.IsDevelopment())
+            {
+                builder.AddDeveloperSigningCredential();
+            }
+            else
+            {
+                throw new Exception("need to configure key material");
+            }
+
+            services.ConfigureApplicationCookie((obj) =>
+            {
+                obj.LoginPath = "/Accounts/Login";
+                obj.LogoutPath = "/Accounts/Logout";
+            });
+
+            services.AddTransient<IProfileService, IdentityClaimsProfileService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }

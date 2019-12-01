@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>
