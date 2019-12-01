@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using FullStackJobs.AuthServer.Models;
+using FullStackJobs.AuthServer.Models.ViewModels;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -40,6 +41,27 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
             Assert.Equal(email, response.Email);
             Assert.Equal(role, response.Role);
             Assert.True(Guid.TryParse(response.Id, out _));
-        }        
+        }
+
+        [Fact]
+        public async Task CanLogin()
+        {
+            /*
+            const string fullName = "Mark Macneil", email = "mark@fullstackmark.com", role = "applicant";
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/accounts")
+            {
+                Content = new StringContent($"{{\"fullName\":\"{fullName}\",\"email\":\"{email}\",\"password\":\"Pa$$w0rd!\",\"role\":\"{role}\"}}", Encoding.UTF8, "application/json")
+            };
+
+            // The endpoint or route of the controller action.
+            var httpResponse = await _client.SendAsync(request);
+
+            var model = new LoginInputModel
+            {
+                Username = "mark@fullstackmark.com",
+                Password = "Pa$$w0rd!"
+            };*/
+        }
     }
 }
