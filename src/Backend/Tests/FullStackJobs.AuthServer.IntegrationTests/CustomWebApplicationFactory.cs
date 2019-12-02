@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +10,14 @@ using Microsoft.Extensions.Logging;
 
 namespace FullStackJobs.AuthServer.IntegrationTests
 {
-    public class CustomWebApplicationFactory<TStartup>
-        : WebApplicationFactory<TStartup> where TStartup : class
+    public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
     {
+        protected override IWebHostBuilder CreateWebHostBuilder()
+        {
+            return WebHost.CreateDefaultBuilder(null)
+                          .UseStartup<TStartup>();
+        }
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureServices(services =>
@@ -39,9 +46,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests
                 using (var scope = sp.CreateScope())
                 {
                     var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<AppIdentityDbContext>();
-                    var logger = scopedServices
-                        .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
+                    var db = scopedServices.GetRequiredService<AppIdentityDbContext>();                 
 
                     // Ensure the database is created.
                     db.Database.EnsureCreated();
