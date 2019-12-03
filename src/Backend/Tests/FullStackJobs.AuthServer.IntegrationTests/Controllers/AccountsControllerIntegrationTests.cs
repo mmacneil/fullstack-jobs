@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using PuppeteerSharp;
- //using OpenQA.Selenium;
- //using OpenQA.Selenium.Chrome;
+//using OpenQA.Selenium;
+//using OpenQA.Selenium.Chrome;
 using Xunit;
 
 namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
@@ -20,7 +20,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
     public class AccountsControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         //private readonly IWebDriver _driver;
-        private readonly HttpClient _client;        
+        private readonly HttpClient _client;
 
         public AccountsControllerIntegrationTests(CustomWebApplicationFactory<Startup> factory)
         {
@@ -56,17 +56,19 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
         [Fact]
         public async Task CanLogin()
         {
+
             var webHost = WebHost.CreateDefaultBuilder()
                      .UseStartup<FakeStartup>()
                      .UseKestrel()
                      .UseUrls("http://localhost:5556")
+                     .UseContentRoot(@"C:\code\fullstack-jobs\src\Backend\FullStackJobs.AuthServer\FullStackJobs.AuthServer")
                      .UseEnvironment("Development")
                      .Build();
-            
-            webHost.Start();           
+
+            webHost.Start();
 
             const string fullName = "Mark Macneil", email = "mark@fullstackmark.com", role = "applicant";
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5556/api/accounts")
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/accounts")
             {
                 Content = new StringContent($"{{\"fullName\":\"{fullName}\",\"email\":\"{email}\",\"password\":\"Pa$$w0rd!\",\"role\":\"{role}\"}}", Encoding.UTF8, "application/json")
             };
@@ -78,12 +80,31 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
             httpResponse.EnsureSuccessStatusCode();
 
             await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
-            var browser = await Puppeteer.LaunchAsync(new LaunchOptions
-            {
-                Headless = true
-            });
 
-            var page = await browser.NewPageAsync();
+            var timeout = TimeSpan.FromSeconds(3).Milliseconds;
+
+            using (var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true }))
+            {
+                using (var page = await browser.NewPageAsync())
+                {
+                    await page.GoToAsync("http://localhost:5556/oidc-client.html");
+                    await page.GetContentAsync();
+                    await Task.WhenAll(page.ClickAsync("#login"), page.WaitForNavigationAsync());
+                    var content = await page.GetContentAsync();
+                }
+            };
+
+
+
+
+            //  await page.GoToAsync("http://localhost:5556/oidc-client.html");
+            // var content = await page.GetContentAsync();
+            // await page.ClickAsync("#button");
+
+            // var title = await page.GetTitleAsync();
+
+
+            /*var page = await browser.NewPageAsync();
             await page.GoToAsync("http://localhost:5556/accounts/login");
 
 
@@ -94,7 +115,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
 
             await page.WaitForNavigationAsync();
 
-            var content = await page.GetContentAsync();
+            var content = await page.GetContentAsync();*/
 
 
 

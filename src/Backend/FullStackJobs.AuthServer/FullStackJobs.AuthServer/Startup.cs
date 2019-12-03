@@ -107,10 +107,12 @@ namespace FullStackJobs.AuthServer
             app.UseStaticFiles();
 
             app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
-            
+
             // todo: check me - will break postman calls
             //app.UseHttpsRedirection();
-            
+
+            app.UseIdentityServer();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");

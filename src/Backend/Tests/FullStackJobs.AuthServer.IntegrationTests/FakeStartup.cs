@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,7 +16,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests
 
         public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            base.Configure(app, env);
+            base.Configure(app, env);            
         }
 
         public override void ConfigureServices(IServiceCollection services)
