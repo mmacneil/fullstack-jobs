@@ -33,16 +33,15 @@ namespace FullStackJobs.AuthServer
             {
                 new Client {
                     RequireConsent = false,
-                    ClientId = "angular_spa",
-                    ClientName = "FullStack Jobs",
-                    AllowedGrantTypes = GrantTypes.Code, // GrantTypes.Implicit,
+                    ClientId = "js_test_client",
+                    ClientName = "Javascript Test Client",
+                    AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
                     RequireClientSecret = false,
                     AllowedScopes = { "openid", "profile", "email", "api.read" },
-                    RedirectUris = {"http://localhost:4200/auth-callback"},
-                    PostLogoutRedirectUris = {"http://localhost:4200/"},
-                    AllowedCorsOrigins = {"http://localhost:4200"},                    
-                    AccessTokenLifetime = (int)TimeSpan.FromDays(224).TotalSeconds // default is 3600/1hr
+                    RedirectUris = {"https://localhost:5001/test-client/callback.html"},
+                    AllowedCorsOrigins = {"https://localhost:5001"},                    
+                    AccessTokenLifetime = (int)TimeSpan.FromDays(224).TotalSeconds
                 }
             };
         }
