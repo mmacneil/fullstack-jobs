@@ -38,7 +38,6 @@ namespace FullStackJobs.AuthServer
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(_connectionStringName)));
             ConfigureDatabase(services);
 
             services.AddIdentity<AppUser, IdentityRole>()
@@ -49,10 +48,10 @@ namespace FullStackJobs.AuthServer
               .AddOperationalStore(options =>
               {
                   options.ConfigureDbContext = builder => builder.UseSqlServer(Configuration.GetConnectionString(_connectionStringName));
-                    // this enables automatic token cleanup. this is optional.
-                    options.EnableTokenCleanup = true;
+                  // this enables automatic token cleanup. this is optional.
+                  options.EnableTokenCleanup = true;
                   options.TokenCleanupInterval = 30; // interval in seconds
-                })
+              })
               //.AddInMemoryPersistedGrants()
               .AddInMemoryIdentityResources(Config.GetIdentityResources())
               .AddInMemoryApiResources(Config.GetApiResources())
@@ -75,7 +74,6 @@ namespace FullStackJobs.AuthServer
             });
 
             services.AddTransient<IProfileService, IdentityClaimsProfileService>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
@@ -108,7 +106,6 @@ namespace FullStackJobs.AuthServer
 
             app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
-            // todo: check me - will break postman calls
             //app.UseHttpsRedirection();
 
             app.UseIdentityServer();

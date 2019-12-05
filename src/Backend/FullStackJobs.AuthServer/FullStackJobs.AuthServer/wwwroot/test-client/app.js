@@ -1,9 +1,9 @@
-﻿
+﻿const host = 'http://localhost:9090';
 
 var config = {
-    authority: 'https://localhost:5001',
+    authority: host,
     client_id: 'js_test_client',
-    redirect_uri: 'https://localhost:5001/test-client/callback.html',    
+    redirect_uri: host + '/test-client/callback.html',
     response_type: "code",
     scope: "openid profile email api.read",
     filterProtocolClaims: true,

@@ -43,19 +43,11 @@ namespace FullStackJobs.AuthServer.IntegrationTests
 
                 // Create a scope to obtain a reference to the database
                 // context (ApplicationDbContext).
-                using (var scope = sp.CreateScope())
-                {
-                    var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<AppIdentityDbContext>();                 
-
-                    // Ensure the database is created.
-                    db.Database.EnsureCreated();
-
-                    // Other setup steps like seeding the database can go here...
-
-                    // Seed the database with test data.
-                    //Utilities.InitializeDbForTests(db);                
-                }
+                using var scope = sp.CreateScope();
+                var scopedServices = scope.ServiceProvider;
+                var db = scopedServices.GetRequiredService<AppIdentityDbContext>();
+                // Ensure the database is created.
+                db.Database.EnsureCreated();
             });
         }
     }

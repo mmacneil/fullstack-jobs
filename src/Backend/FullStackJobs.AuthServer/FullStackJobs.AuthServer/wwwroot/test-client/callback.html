@@ -8,7 +8,7 @@
     <script src="oidc-client.min.js"></script>
     <script>
         new Oidc.UserManager({ response_mode: "query" }).signinRedirectCallback().then(function () {
-            window.location = "oidc-client.html";
+            window.location = "index.html";
         }).catch(function (e) {
             console.error(e);
         });
