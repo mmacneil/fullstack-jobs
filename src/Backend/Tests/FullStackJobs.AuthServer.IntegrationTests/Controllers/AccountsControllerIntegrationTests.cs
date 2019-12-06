@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +13,12 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
     [Collection("WebHost collection")]
     public class AccountsControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
-        private const string _fullName = "Mark Macneil", _email = "mark@fullstackmark.com", _password = "Pa$$w0rd!", _role = "applicant";
-
-        private readonly HttpRequestMessage _createAccountRequest = new HttpRequestMessage(HttpMethod.Post, "/api/accounts")
+        private static readonly IList<SignupRequest> _signupRequests = new List<SignupRequest>
         {
-            Content = new StringContent($"{{\"fullName\":\"{_fullName}\",\"email\":\"{_email}\",\"password\":\"{_password}\",\"role\":\"{_role}\"}}", Encoding.UTF8, "application/json")
+            new SignupRequest() {FullName = "Mark Macneil", Email = "mark@fullstackmark.com", Password="Pa$$w0rd!", Role="applicant"},
+            new SignupRequest() {FullName = "Prescott Terrell", Email = "pterrell@mailinator.com", Password="Pa$$w0rd!", Role="employer"}
         };
-
+       
         private readonly HttpClient _client;
 
         public AccountsControllerIntegrationTests(CustomWebApplicationFactory<Startup> factory)
@@ -29,23 +29,29 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
         [Fact]
         public async Task CanCreateAccount()
         {
-            var httpResponse = await _client.SendAsync(_createAccountRequest);
+            var httpResponse = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/api/accounts")
+            {
+                Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(_signupRequests[0]), Encoding.UTF8, "application/json")
+            });
 
             httpResponse.EnsureSuccessStatusCode();
 
             // Deserialize and examine results.
             var stringResponse = await httpResponse.Content.ReadAsStringAsync();
             var response = JsonConvert.DeserializeObject<SignupResponse>(stringResponse);
-            Assert.Equal(_fullName, response.FullName);
-            Assert.Equal(_email, response.Email);
-            Assert.Equal(_role, response.Role);
+            Assert.Equal(_signupRequests[0].FullName, response.FullName);
+            Assert.Equal(_signupRequests[0].Email, response.Email);
+            Assert.Equal(_signupRequests[0].Role, response.Role);
             Assert.True(Guid.TryParse(response.Id, out _));
-        }
+        }     
 
         [Fact]
         public async Task CanLogin()
         {
-            var httpResponse = await _client.SendAsync(_createAccountRequest);
+            var httpResponse = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/api/accounts")
+            {
+                Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(_signupRequests[1]), Encoding.UTF8, "application/json")
+            });
 
             httpResponse.EnsureSuccessStatusCode();
 
@@ -61,8 +67,8 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
 
                     await Task.WhenAll(navigationTask, page.ClickAsync("button"));
 
-                    await page.TypeAsync("#Username", _email);
-                    await page.TypeAsync("#Password", _password);
+                    await page.TypeAsync("#Username", _signupRequests[1].Email);
+                    await page.TypeAsync("#Password", _signupRequests[1].Password);
 
                     navigationTask = page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Networkidle0 } });
                     await Task.WhenAll(navigationTask, page.ClickAsync(".btn-primary"));
@@ -71,6 +77,9 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
                     await page.CloseAsync();
 
                     Assert.Contains("User logged in", content);
+                    Assert.Contains("Prescott Terrell", content);
+                    Assert.Contains("pterrell@mailinator.com", content);
+                    Assert.Contains("employer", content);
                 }
             };
         }
