@@ -1,4 +1,4 @@
-﻿const host = 'http://localhost:9090';
+﻿const host = 'https://localhost:5001';
 
 var config = {
     authority: host,

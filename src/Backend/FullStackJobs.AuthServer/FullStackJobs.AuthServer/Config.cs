@@ -39,8 +39,8 @@ namespace FullStackJobs.AuthServer
                     RequirePkce = true,
                     RequireClientSecret = false,
                     AllowedScopes = { "openid", "profile", "email", "api.read" },
-                    RedirectUris = {"http://localhost:9090/test-client/callback.html"},
-                    AllowedCorsOrigins = {"http://localhost:9090"},
+                    RedirectUris = {"https://localhost:5001/test-client/callback.html"},
+                    AllowedCorsOrigins = {"https://localhost:5001"},
                     AccessTokenLifetime = (int)TimeSpan.FromMinutes(120).TotalSeconds
                 }
             };
