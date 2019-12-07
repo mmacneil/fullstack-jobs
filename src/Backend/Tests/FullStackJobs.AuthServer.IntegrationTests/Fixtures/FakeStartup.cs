@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FullStackJobs.AuthServer.IntegrationTests
+namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
 {
     public class FakeStartup : Startup
     {

@@ -1,6 +1,6 @@
 ﻿
 
-namespace FullStackJobs.AuthServer.IntegrationTests
+namespace FullStackJobs.AuthServer.IntegrationTests.Shared
 {
     public static class Constants
     {

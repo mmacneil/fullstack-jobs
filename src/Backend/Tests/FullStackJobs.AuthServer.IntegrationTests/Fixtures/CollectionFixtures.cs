@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace FullStackJobs.AuthServer.IntegrationTests
+namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
 {
     [CollectionDefinition("WebHost collection")]
     public class DatabaseCollection : ICollectionFixture<WebHostFixture>
