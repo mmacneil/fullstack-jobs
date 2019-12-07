@@ -55,7 +55,7 @@ namespace FullStackJobs.AuthServer
               //.AddInMemoryPersistedGrants()
               .AddInMemoryIdentityResources(Config.GetIdentityResources())
               .AddInMemoryApiResources(Config.GetApiResources())
-              .AddInMemoryClients(Config.GetClients())
+              .AddInMemoryClients(Config.GetClients(Configuration.GetValue("AppSettings:Address", "")))
               .AddAspNetIdentity<AppUser>();
 
             if (Environment.IsDevelopment())

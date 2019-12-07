@@ -27,7 +27,7 @@ namespace FullStackJobs.AuthServer
             };
         }
 
-        public static IEnumerable<Client> GetClients()
+        public static IEnumerable<Client> GetClients(string devHost = "")
         {
             return new[]
             {
@@ -39,8 +39,8 @@ namespace FullStackJobs.AuthServer
                     RequirePkce = true,
                     RequireClientSecret = false,
                     AllowedScopes = { "openid", "profile", "email", "api.read" },
-                    RedirectUris = {"http://localhost:9090/test-client/callback.html"},
-                    AllowedCorsOrigins = {"http://localhost:9090"},
+                    RedirectUris = {$"http://{devHost}/test-client/callback.html"}, // test client runs on same host
+                    AllowedCorsOrigins = {$"http://{devHost}" }, // test client runs on same host
                     AccessTokenLifetime = (int)TimeSpan.FromMinutes(120).TotalSeconds
                 }
             };

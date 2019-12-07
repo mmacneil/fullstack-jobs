@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-
+using System.Net;
 
 namespace FullStackJobs.AuthServer
 {
@@ -15,6 +16,14 @@ namespace FullStackJobs.AuthServer
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    if (webBuilder.GetSetting("environment") == "Development")
+                    {
+                        webBuilder.UseKestrel((host, options) =>
+                        {
+                            options.Listen(IPEndPoint.Parse(host.Configuration.GetValue("AppSettings:Address", "")));
+                        });
+                    }
+
                     webBuilder.UseStartup<Startup>();
                 });
     }

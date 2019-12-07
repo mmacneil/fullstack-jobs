@@ -1,5 +1,5 @@
-﻿const host = 'http://localhost:9090';
-
+﻿const host = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+ 
 var config = {
     authority: host,
     client_id: 'js_test_client',
