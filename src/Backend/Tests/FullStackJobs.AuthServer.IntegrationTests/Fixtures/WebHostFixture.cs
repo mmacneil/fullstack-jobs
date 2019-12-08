@@ -10,18 +10,6 @@ using System.Reflection;
 namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
 {
 
-    public static class TestHelper
-    {
-        public static IConfigurationRoot GetIConfigurationRoot(string outputPath)
-        {
-            return new ConfigurationBuilder()
-                .SetBasePath(outputPath)
-                .AddJsonFile("appsettings.development.json", optional: true)
-                .AddEnvironmentVariables()
-                .Build();
-        }
-    }
-
     public sealed class WebHostFixture : IDisposable
     {
         private readonly IWebHost _webHost;
@@ -33,15 +21,14 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
             {
                 if (string.IsNullOrEmpty(_host))
                 {
-                    var config = TestHelper.GetIConfigurationRoot(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
-                    _host = config.GetValue("AppSettings:Address", "");
+                    _host = Helpers.GetIConfigurationRoot(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)).GetValue("AppSettings:Address", "");
                 }
                 return _host;
             }
         }
         public WebHostFixture()
         {
-            var startupAssembly = typeof(Startup).GetTypeInfo().Assembly; 
+            var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
 
             _webHost = WebHost.CreateDefaultBuilder()
                   .UseStartup<FakeStartup>()
@@ -49,7 +36,6 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
                  {
                      options.Listen(IPEndPoint.Parse(Host));
                  })
-                  //.UseUrls(Constants.HostAddress)
                   .UseContentRoot(Path.Combine(Helpers.GetProjectPath(startupAssembly), startupAssembly.GetName().Name))
                   .UseEnvironment("Development")
                   .Build();

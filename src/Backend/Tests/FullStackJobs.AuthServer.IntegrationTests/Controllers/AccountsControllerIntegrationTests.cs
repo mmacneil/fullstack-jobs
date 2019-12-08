@@ -19,7 +19,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
             new SignupRequest() {FullName = "Mark Macneil", Email = "mark@fullstackmark.com", Password="Pa$$w0rd!", Role="applicant"},
             new SignupRequest() {FullName = "Prescott Terrell", Email = "pterrell@mailinator.com", Password="Pa$$w0rd!", Role="employer"}
         };
-       
+
         private readonly HttpClient _client;
         private readonly WebHostFixture _webHostFixture;
 
@@ -46,7 +46,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
             Assert.Equal(_signupRequests[0].Email, response.Email);
             Assert.Equal(_signupRequests[0].Role, response.Role);
             Assert.True(Guid.TryParse(response.Id, out _));
-        }     
+        }
 
         [Fact]
         public async Task CanLogin()
