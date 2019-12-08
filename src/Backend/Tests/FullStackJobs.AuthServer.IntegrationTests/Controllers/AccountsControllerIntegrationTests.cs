@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using FullStackJobs.AuthServer.IntegrationTests.Shared;
+using FullStackJobs.AuthServer.IntegrationTests.Fixtures;
 using FullStackJobs.AuthServer.Models;
 using Newtonsoft.Json;
 using PuppeteerSharp;
@@ -21,10 +21,12 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
         };
        
         private readonly HttpClient _client;
+        private readonly WebHostFixture _webHostFixture;
 
-        public AccountsControllerIntegrationTests(CustomWebApplicationFactory<Startup> factory)
+        public AccountsControllerIntegrationTests(CustomWebApplicationFactory<Startup> factory, WebHostFixture webHostFixture)
         {
             _client = factory.CreateClient();
+            _webHostFixture = webHostFixture;
         }
 
         [Fact]
@@ -62,7 +64,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
             {
                 using (var page = await browser.NewPageAsync())
                 {
-                    await page.GoToAsync($"{Constants.HostAddress}/test-client/index.html");
+                    await page.GoToAsync($"http://{_webHostFixture.Host}/test-client/index.html");
 
                     var navigationTask = page.WaitForNavigationAsync();
 
