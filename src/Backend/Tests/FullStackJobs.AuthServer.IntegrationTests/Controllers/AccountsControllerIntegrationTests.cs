@@ -51,6 +51,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
         [Fact]
         public async Task CanLogin()
         {
+            // Create a new account against the InMemory database
             var httpResponse = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/api/accounts")
             {
                 Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(_signupRequests[1]), Encoding.UTF8, "application/json")
@@ -58,27 +59,32 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
 
             httpResponse.EnsureSuccessStatusCode();
 
+            // PuppeteerSharp setup
             await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
 
             using (var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true }))
             {
                 using (var page = await browser.NewPageAsync())
                 {
+                    // Navigate to the test client page
                     await page.GoToAsync($"http://{_webHostFixture.Host}/test-client/index.html");
 
                     var navigationTask = page.WaitForNavigationAsync();
 
                     await Task.WhenAll(navigationTask, page.ClickAsync("button"));
 
+                    // Fill out the login form
                     await page.TypeAsync("#Username", _signupRequests[1].Email);
                     await page.TypeAsync("#Password", _signupRequests[1].Password);
 
+                    // Hit the login button and wait for redirect navigation...
                     navigationTask = page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Networkidle0 } });
                     await Task.WhenAll(navigationTask, page.ClickAsync(".btn-primary"));
 
                     var content = await page.GetContentAsync();
                     await page.CloseAsync();
 
+                    // Assert we have a logged-in state in the test client
                     Assert.Contains("User logged in", content);
                     Assert.Contains("Prescott Terrell", content);
                     Assert.Contains("pterrell@mailinator.com", content);
