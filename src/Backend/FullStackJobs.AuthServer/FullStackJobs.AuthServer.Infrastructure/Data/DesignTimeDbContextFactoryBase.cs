@@ -10,7 +10,7 @@ namespace FullStackJobs.AuthServer.Infrastructure.Data
     {
         public TContext CreateDbContext(string[] args)
         {
-            return Create(Directory.GetCurrentDirectory(), Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
+            return Create(Directory.GetCurrentDirectory(), Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT"));
         }
 
         protected string ConnectionString;
@@ -19,7 +19,7 @@ namespace FullStackJobs.AuthServer.Infrastructure.Data
 
         public TContext Create()
         {
-            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
             var basePath = AppContext.BaseDirectory;
             return Create(basePath, environmentName);
         }
