@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '~normalize.css/normalize.css';
+@import "theme.scss";
+@import "variables.scss";
+@include mat-core();
+@include angular-material-theme($fullstack-jobs-theme);
+@include angular-material-typography($custom-typography);
+
+html {height:100%;}
+body {color:$light-grey;min-height:100%;background-color:#fafafa}
+
+// global
+hr {border-top: 1px solid #cecece}
+
+.container {padding:1.5rem}
+
+h1 {font-size:36px !important;font-weight:480 !important}
+h4 {font-size:16px;}
+.sub-title {color:$light-grey}
+
+.hero {text-align:center}
+.hero > .mat-display-2 {margin-bottom:10px}
+.hero > h2 {font-weight:300}
+
+// material
+mat-card-title{
+    color: $light-grey;
+    margin-bottom:2.25rem !important
+}
+
+.spinner-container {display: flex; align-items:center; justify-content: center}
+
+.ck-editor__editable_inline {
+    min-height: 120px !important;
+}
+
+mat-card {
+    padding-top:2.25rem  !important   
+}

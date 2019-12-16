@@ -1,0 +1,32 @@
+@import '~@angular/material/theming';
+
+$fullstack-jobs-theme-primary: mat-palette($mat-light-blue);
+$fullstack-jobs-theme-accent: mat-palette($mat-orange, A200, A100, A400);
+$fullstack-jobs-theme-warn: mat-palette($mat-red);
+
+$fullstack-jobs-theme: mat-light-theme(
+    $fullstack-jobs-theme-primary,
+    $fullstack-jobs-theme-accent,
+    $fullstack-jobs-theme-warn
+);
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family: 'Nunito, sans-serif',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+// Custom style for anchor elements
+// Appears to be the most straightforward method currently to use material colors for link elements
+// https://github.com/angular/components/issues/6532
+// https://github.com/angular/material/issues/1313
+  a {
+    color: mat-color($fullstack-jobs-theme-accent);
+    text-decoration: none
+  }
+
+  .error {color: mat-color($fullstack-jobs-theme-warn)}
+
+  $accent: mat-color($fullstack-jobs-theme-accent);
