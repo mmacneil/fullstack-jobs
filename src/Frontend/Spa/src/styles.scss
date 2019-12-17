@@ -3,7 +3,6 @@
 @import '~normalize.css/normalize.css';
 @import "theme.scss";
 @import "variables.scss";
-@include mat-core();
 @include angular-material-theme($fullstack-jobs-theme);
 @include angular-material-typography($custom-typography);
 
