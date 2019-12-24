@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class ConfigService {    
 
     static readonly RESOURCE_BASE_URI = "https://localhost:5025";
-    static readonly AUTH_BASE_URI = "https://localhost:5066";
+    static readonly AUTH_BASE_URI = "https://localhost:5001";
 
     constructor() {}
 
