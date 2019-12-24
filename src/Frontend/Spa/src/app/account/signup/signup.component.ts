@@ -17,6 +17,10 @@ export class SignupComponent implements OnInit {
 
   constructor() { }
 
+  public signup = (signupFormValue: any) => {
+
+  }
+
   ngOnInit() {
     this.signupForm = new FormGroup({
       fullName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),

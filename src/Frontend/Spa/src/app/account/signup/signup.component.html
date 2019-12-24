@@ -1,7 +1,51 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
     <mat-card fxFlex="50%" fxFlex.xs="100%">
         <mat-card-title>Post a Job or Apply for One!</mat-card-title>
-        
-    </mat-card>
+        <form [formGroup]="signupForm" (ngSubmit)="signup(signupForm.value)" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <mat-card-content>
+  
+              <mat-form-field>
+                  <input matInput type="text" placeholder="Full Name" formControlName="fullName" autoFocus>
+                  <mat-error *ngIf="hasError('fullName', 'required')">Name is required</mat-error>
+                  <mat-error *ngIf="hasError('fullName', 'maxlength')">You have more than 60 characters</mat-error>
+                </mat-form-field>
+  
+                <mat-form-field>
+                    <input matInput type="email" placeholder="Email" formControlName="email">
+                    <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error> 
+                    <mat-error *ngIf="hasError('email', 'email')">Email is invalid</mat-error>                 
+                </mat-form-field>
+  
+                <mat-form-field>
+                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error> 
+                    <mat-error *ngIf="hasError('password', 'minlength')">Password must be at least 6 characters</mat-error>
+                    <mat-error *ngIf="hasError('password', 'pattern')">Use one special character (@!#$%^&+=), 1 uppercase (A-Z) character and one digit (0-9)</mat-error>                  
+                </mat-form-field> 
+                
+                <mat-form-field>
+                  <mat-label>My Role</mat-label>
+                  <select matNativeControl formControlName="role">
+                    <option value="employer">Employer</option>
+                    <option value="applicant">Job Seeker</option> 
+                  </select>
+                </mat-form-field>
+  
+          </mat-card-content>        
+          <mat-card-actions align="center">
+              <button mat-raised-button color="primary" [disabled]="busy">Sign Up</button>          
+          </mat-card-actions>
+  
+          <div class="spinner-container" *ngIf="busy">
+              <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+          </div>
+  
+          <div *ngIf="error" class="error" role="alert">
+              <strong>Oops!</strong> {{error}}
+          </div>
+          
+        </form>
+      </mat-card>
   </section>
    
