@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators'
-
+import { AccountSignup } from '../../core/models/account-signup';
+import { AccountService } from '../../core/services/account.service';
+import { AuthService } from '../../core/authentication/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,11 +17,7 @@ export class SignupComponent implements OnInit {
   hide = true;
   busy = false;
 
-  constructor() { }
-
-  public signup = (signupFormValue: any) => {
-
-  }
+  constructor(private accountService: AccountService, private authService: AuthService) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
@@ -33,4 +31,34 @@ export class SignupComponent implements OnInit {
   public hasError = (controlName: string, errorName: string) =>{
     return this.signupForm.controls[controlName].hasError(errorName);
   }
+
+  public signup = (signupFormValue: any) => {
+
+    if (this.signupForm.valid) {
+
+      this.busy=true;
+    
+      let accountSignup: AccountSignup = {
+        fullName: signupFormValue.fullName,
+        email: signupFormValue.email,
+        password: signupFormValue.password,
+        role: signupFormValue.role     
+      }
+  
+      this.accountService.signup(accountSignup)
+      .pipe(finalize(() => {
+        this.busy=false;
+      }))  
+      .subscribe(
+      result => {         
+         if(result) {
+           // redirect to login
+           this.authService.login(true, accountSignup.email);
+         }
+      },
+      error => {
+        this.error = error;       
+      });
+    }
+  } 
 }

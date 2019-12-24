@@ -24,6 +24,7 @@
     "@angular/router": "~8.2.14",
     "hammerjs": "^2.0.8",
     "normalize.css": "^8.0.1",
+    "oidc-client": "^1.10.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
