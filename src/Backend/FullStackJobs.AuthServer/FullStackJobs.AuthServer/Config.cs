@@ -42,6 +42,18 @@ namespace FullStackJobs.AuthServer
                     RedirectUris = {$"http://{devHost}/test-client/callback.html"}, // test client runs on same host
                     AllowedCorsOrigins = {$"http://{devHost}" }, // test client runs on same host
                     AccessTokenLifetime = (int)TimeSpan.FromMinutes(120).TotalSeconds
+                },
+                 new Client {
+                    RequireConsent = false,
+                    ClientId = "angular_spa",
+                    ClientName = "Angular Client",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+                    AllowedScopes = { "openid", "profile", "email", "api.read" },
+                    RedirectUris = {"http://localhost:4200/auth-callback"}, // test client runs on same host
+                    AllowedCorsOrigins = {"http://localhost:4200" }, // test client runs on same host
+                    AccessTokenLifetime = (int)TimeSpan.FromMinutes(120).TotalSeconds
                 }
             };
         }

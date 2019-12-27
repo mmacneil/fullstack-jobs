@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
 import { UserManager, UserManagerSettings, User } from 'oidc-client';
 import { BehaviorSubject } from 'rxjs';
 
@@ -17,7 +16,7 @@ export class AuthService extends BaseService {
   // Observable navItem stream
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
-  private manager = new UserManager(getClientSettings());
+  private manager = new UserManager(getClientSettings(this.configService.authAppURI));
   private user: User | null;
 
   constructor(private http: HttpClient, private configService: ConfigService) {
@@ -47,10 +46,6 @@ export class AuthService extends BaseService {
     this._authNavStatusSource.next(this.isAuthenticated());
   }
 
-  register(userRegistration: any) {
-    return this.http.post(this.configService.authApiURI + '/account', userRegistration).pipe(catchError(this.handleError));
-  }
-
   isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
   }
@@ -73,13 +68,13 @@ export class AuthService extends BaseService {
   }
 }
 
-export function getClientSettings(): UserManagerSettings {
+export function getClientSettings(authority: string): UserManagerSettings {   
   return {
-    authority: 'https://localhost:5066',
+    authority:  authority,
     client_id: 'angular_spa',
     redirect_uri: 'http://localhost:4200/auth-callback',
     post_logout_redirect_uri: 'http://localhost:4200/',
-    response_type: "id_token token",
+    response_type: "code",
     scope: "openid profile email api.read",
     filterProtocolClaims: true,
     loadUserInfo: true

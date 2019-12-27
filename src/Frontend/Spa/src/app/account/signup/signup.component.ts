@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit {
       .subscribe(
       result => {         
          if(result) {
-           // redirect to login
+           // redirect to login            
            this.authService.login(true, accountSignup.email);
          }
       },
