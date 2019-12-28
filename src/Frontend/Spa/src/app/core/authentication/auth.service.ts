@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { UserManager, UserManagerSettings, User } from 'oidc-client';
 import { BehaviorSubject } from 'rxjs';
 
@@ -7,76 +6,73 @@ import { BaseService } from '../services/base.service';
 import { ConfigService } from '../services/config.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService extends BaseService {
 
-  // Observable navItem source
-  private _authNavStatusSource = new BehaviorSubject<boolean>(false);
-  // Observable navItem stream
-  authNavStatus$ = this._authNavStatusSource.asObservable();
+    // Observable navItem source
+    private _authNavStatusSource = new BehaviorSubject<boolean>(false);
+    // Observable navItem stream
+    authNavStatus$ = this._authNavStatusSource.asObservable();
 
-  private manager = new UserManager(getClientSettings(this.configService.authAppURI));
-  private user: User | null;
-
-  constructor(private http: HttpClient, private configService: ConfigService) {
-    super();
-
-    this.manager.getUser().then(user => {
-      this.user = user;
-      this._authNavStatusSource.next(this.isAuthenticated());
+    private manager = new UserManager({
+        authority: this.configService.authAppURI,
+        client_id: 'angular_spa',
+        redirect_uri: 'http://localhost:4200/auth-callback',
+        post_logout_redirect_uri: 'http://localhost:4200/',
+        response_type: "code",
+        scope: "openid profile email api.read",
+        filterProtocolClaims: true,
+        loadUserInfo: true
     });
-  }
 
-  login(newAccount?: boolean, userName?: string) {
+    private user: User | null;
 
-    let extraQueryParams = newAccount && userName ? {
-      newAccount: newAccount,
-      userName: userName
-    } : {};
+    constructor(private configService: ConfigService) {
+        super();
 
-    // https://github.com/IdentityModel/oidc-client-js/issues/315
-    return this.manager.signinRedirect({
-      extraQueryParams
-    });
-  }
+        this.manager.getUser().then(user => {
+            this.user = user;
+            this._authNavStatusSource.next(this.isAuthenticated());
+        });
+    }
 
-  async completeAuthentication() {
-    this.user = await this.manager.signinRedirectCallback();
-    this._authNavStatusSource.next(this.isAuthenticated());
-  }
+    login(newAccount?: boolean, userName?: string) {
 
-  isAuthenticated(): boolean {
-    return this.user != null && !this.user.expired;
-  }
+        let extraQueryParams = newAccount && userName ? {
+            newAccount: newAccount,
+            userName: userName
+        } : {};
 
-  get authorizationHeaderValue(): string {
+        // https://github.com/IdentityModel/oidc-client-js/issues/315
+        return this.manager.signinRedirect({
+            extraQueryParams
+        });
+    }
 
-    return this.user ? `${this.user.token_type} ${this.user.access_token}` : null;
-  }
+    async completeAuthentication() {
+        this.user = await this.manager.signinRedirectCallback();
+        this._authNavStatusSource.next(this.isAuthenticated());
+    }
 
-  get role(): string {
-    return this.user != null ? this.user.profile["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] : '';
-  }
+    isAuthenticated(): boolean {
+        return this.user != null && !this.user.expired;
+    }
 
-  get name(): string {
-    return this.user != null ? this.user.profile.name : '';
-  }
+    get authorizationHeaderValue(): string {
 
-  async signout() {
-    await this.manager.signoutRedirect();
-  }
-}
+        return this.user ? `${this.user.token_type} ${this.user.access_token}` : null;
+    }
 
-export function getClientSettings(authority: string): UserManagerSettings {   
-  return {
-    authority:  authority,
-    client_id: 'angular_spa',
-    redirect_uri: 'http://localhost:4200/auth-callback',
-    post_logout_redirect_uri: 'http://localhost:4200/',
-    response_type: "code",
-    scope: "openid profile email api.read",
-    filterProtocolClaims: true,
-    loadUserInfo: true
-  };
+    get role(): string {
+        return this.user != null ? this.user.profile["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] : '';
+    }
+
+    get name(): string {
+        return this.user != null ? this.user.profile.name : '';
+    }
+
+    async signout() {
+        await this.manager.signoutRedirect();
+    }
 }
