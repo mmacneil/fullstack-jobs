@@ -11,9 +11,9 @@ import { ConfigService } from '../services/config.service';
 export class AuthService extends BaseService {
 
     // Observable navItem source
-    private _authNavStatusSource = new BehaviorSubject<boolean>(false);
+    private authNavStatusSource = new BehaviorSubject<boolean>(false);
     // Observable navItem stream
-    authNavStatus$ = this._authNavStatusSource.asObservable();
+    authNavStatus$ = this.authNavStatusSource.asObservable();
 
     private manager = new UserManager({
         authority: this.configService.authAppURI,
@@ -33,7 +33,7 @@ export class AuthService extends BaseService {
 
         this.manager.getUser().then(user => {
             this.user = user;
-            this._authNavStatusSource.next(this.isAuthenticated());
+            this.authNavStatusSource.next(this.isAuthenticated());
         });
     }
 
@@ -52,7 +52,7 @@ export class AuthService extends BaseService {
 
     async completeAuthentication() {
         this.user = await this.manager.signinRedirectCallback();
-        this._authNavStatusSource.next(this.isAuthenticated());
+        this.authNavStatusSource.next(this.isAuthenticated());
     }
 
     isAuthenticated(): boolean {
