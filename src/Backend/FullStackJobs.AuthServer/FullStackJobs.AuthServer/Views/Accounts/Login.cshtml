@@ -9,6 +9,13 @@
                 <form asp-route="Login" class="form-signin mt-4">
                     <input type="hidden" asp-for="ReturnUrl" />
 
+                    @if (Model.NewAccount)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            Account created successfully!
+                        </div>
+                    }
+
                     <fieldset>
                         <div class="form-group">
                             <label asp-for="Username"></label>

@@ -65,9 +65,16 @@ namespace FullStackJobs.AuthServer.Controllers
         /// Entry point into the login workflow
         /// </summary>
         [HttpGet]
-        public IActionResult Login(string returnUrl)
+        public async Task<IActionResult> Login(string returnUrl)
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+
+            return View(new LoginViewModel
+            {
+                ReturnUrl = returnUrl,
+                Username = GetUserName(returnUrl) ?? context?.LoginHint, // On signup populate with new account pre-populate with userName from client otherwise defer to IDS constext
+                NewAccount = returnUrl.Contains("newAccount"),
+            });
         }
 
         /// <summary>
@@ -137,6 +144,12 @@ namespace FullStackJobs.AuthServer.Controllers
                 RememberLogin = model.RememberLogin
             };
             return View(vm); ;
+        }
+
+        private static string GetUserName(string returnUrl)
+        {
+            const string parameter = "&userName=";
+            return returnUrl.Contains("userName") ? returnUrl.Substring(returnUrl.IndexOf("&userName=") + parameter.Length) : null;
         }
     }
 }
