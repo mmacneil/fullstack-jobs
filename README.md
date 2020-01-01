@@ -20,16 +20,27 @@ Part 2: [Angular app foundation with user signup and login features ](https://fu
 
 To build and run the solution:
 
-1. Clone or create a template from this repository.
+### Get the Code
 
-2. Use migrations to create the database.
+Clone or create a template from this repository.
 
-   From the command line use the dotnet CLI to apply the migrations from each project's `Infrastructure` folder.
-   1. <code>FullStackJobs.AuthServer.Infrastructure> dotnet ef database update --context PersistedGrantDbContext</code>
-   2. <code>FullStackJobs.AuthServer.Infrastructure> dotnet ef database update --context AppIdentityDbContext</code>
+### Create the Sql Server Database
+
+Use migrations to create the database as follows:
+
+From the command line use the dotnet CLI to apply the migrations from each project's `Infrastructure` folder.
+1. <code>FullStackJobs.AuthServer.Infrastructure> dotnet ef database update --context PersistedGrantDbContext</code>
+2. <code>FullStackJobs.AuthServer.Infrastructure> dotnet ef database update --context AppIdentityDbContext</code>
    
-3. Build and run the `FullStackJobs.AuthServer` project using your favorite IDE in VS2019, VS Code or VS for Mac or CLI via `dotnet run`.  Ensure it is running at *https://localhost:8787*.
+### Build and Run the AuthServer Backend Project
 
+Build and run the `FullStackJobs.AuthServer` project using your favorite IDE in VS2019, VS Code or VS for Mac.  Optionally, lauch it from the command line using the CLI `dotnet run` command.  Ensure it is running at *https://localhost:8787*.
+
+### Build and Run the Angular Frontend Project
+
+1. Use `npm` to install depdendencies from `package.json'.
+<code>Spa> λ npm install</code>
+ 
 ![alt text](https://raw.githubusercontent.com/mmacneil/fullstack-jobs/master/docs/img/angular-aspnet-core-job-application-flow.gif "Build an Authenticated GraphQL App with Angular, ASP.NET Core and IdentityServer")
 
 ![alt text](https://github.com/mmacneil/fullstack-jobs/blob/master/docs/img/angular-aspnet-core-job-edit-flow.gif "Build an Authenticated GraphQL App with Angular, ASP.NET Core and IdentityServer")
