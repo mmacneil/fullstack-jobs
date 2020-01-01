@@ -41,12 +41,16 @@ Build and run the `FullStackJobs.AuthServer` project using your favorite IDE in 
 1. Use `npm` to install depdendencies from `package.json'.
 <pre><code>Spa> npm install</code></pre>
 
-2. Use the Angular CLI to build and launch the project on the webpack development server.
+2. Use the Angular CLI to build and launch the app on the webpack development server.
 <pre><code>Spa> ng serve</code></pre>
 
 #### View the App
 
 Point your browser to *https://localhost:4200* to access the application.
+
+#### Contact
+
+mark@fullstackmark.com
  
 ![alt text](https://raw.githubusercontent.com/mmacneil/fullstack-jobs/master/docs/img/angular-aspnet-core-job-application-flow.gif "Build an Authenticated GraphQL App with Angular, ASP.NET Core and IdentityServer")
 
