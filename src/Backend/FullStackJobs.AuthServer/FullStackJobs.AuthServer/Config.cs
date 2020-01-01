@@ -51,7 +51,8 @@ namespace FullStackJobs.AuthServer
                     RequirePkce = true,
                     RequireClientSecret = false,
                     AllowedScopes = { "openid", "profile", "email", "api.read" },
-                    RedirectUris = {"http://localhost:4200/auth-callback"}, // test client runs on same host
+                    RedirectUris = {"http://localhost:4200/auth-callback"}, // test client runs on same host,
+                    PostLogoutRedirectUris = new List<string> {"http://localhost:4200/"},
                     AllowedCorsOrigins = {"http://localhost:4200" }, // test client runs on same host
                     AccessTokenLifetime = (int)TimeSpan.FromMinutes(120).TotalSeconds
                 }

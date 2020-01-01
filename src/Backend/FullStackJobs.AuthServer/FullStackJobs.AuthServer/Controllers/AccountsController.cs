@@ -17,14 +17,16 @@ namespace FullStackJobs.AuthServer.Controllers
 {
     public class AccountsController : Controller
     {
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly UserManager<AppUser> _userManager;
         private readonly AppIdentityDbContext _appIdentityDbContext;
         private readonly IEventService _events;
 
-        public AccountsController(IIdentityServerInteractionService interaction, IAuthenticationSchemeProvider schemeProvider, UserManager<AppUser> userManager, AppIdentityDbContext appIdentityDbContext, IEventService events)
+        public AccountsController(SignInManager<AppUser> signInManager, IIdentityServerInteractionService interaction, IAuthenticationSchemeProvider schemeProvider, UserManager<AppUser> userManager, AppIdentityDbContext appIdentityDbContext, IEventService events)
         {
+            _signInManager = signInManager;
             _interaction = interaction;
             _schemeProvider = schemeProvider;
             _userManager = userManager;
@@ -144,6 +146,14 @@ namespace FullStackJobs.AuthServer.Controllers
                 RememberLogin = model.RememberLogin
             };
             return View(vm); ;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout(string logoutId)
+        {
+            await _signInManager.SignOutAsync();
+            var context = await _interaction.GetLogoutContextAsync(logoutId); 
+            return Redirect(context.PostLogoutRedirectUri);            
         }
 
         private static string GetUserName(string returnUrl)
