@@ -4,4 +4,18 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="autofac" Version="4.9.4" />
+    <PackageReference Include="humanizer.core" Version="2.7.9" />
+    <PackageReference Include="microsoft.entityframeworkcore" Version="3.1.0" />
+    <PackageReference Include="microsoft.entityframeworkcore.design" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="3.1.0" />
+    <PackageReference Include="microsoft.extensions.configuration.environmentvariables" Version="3.1.0" />
+    <PackageReference Include="microsoft.extensions.configuration.fileextensions" Version="3.1.0" />
+    <PackageReference Include="microsoft.extensions.configuration.json" Version="3.1.0" />
+  </ItemGroup>
+
 </Project>
