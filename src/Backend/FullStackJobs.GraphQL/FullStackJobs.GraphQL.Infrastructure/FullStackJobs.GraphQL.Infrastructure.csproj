@@ -18,4 +18,8 @@
     <PackageReference Include="microsoft.extensions.configuration.json" Version="3.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FullStackJobs.GraphQL.Core\FullStackJobs.GraphQL.Core.csproj" />
+  </ItemGroup>
+
 </Project>
