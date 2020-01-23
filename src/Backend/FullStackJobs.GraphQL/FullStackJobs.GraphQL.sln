@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackJobs.GraphQL.Infrastructure", "FullStackJobs.GraphQL.Infrastructure\FullStackJobs.GraphQL.Infrastructure.csproj", "{DCCAB363-6064-499D-A362-FBBBA1FD9041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullStackJobs.GraphQL.Core", "FullStackJobs.GraphQL.Core\FullStackJobs.GraphQL.Core.csproj", "{BE48811C-6255-4511-8E9F-B7CD758B9CBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackJobs.GraphQL.Core", "FullStackJobs.GraphQL.Core\FullStackJobs.GraphQL.Core.csproj", "{BE48811C-6255-4511-8E9F-B7CD758B9CBF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackJobs.GraphQL.Common", "FullStackJobs.GraphQL.Common\FullStackJobs.GraphQL.Common.csproj", "{3133D358-6A01-4FE6-9FB5-A522DAEE6052}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullStackJobs.GraphQL.Api", "FullStackJobs.GraphQL.Api\FullStackJobs.GraphQL.Api.csproj", "{1AED9877-E785-43DD-B9BC-C031623E34C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{BE48811C-6255-4511-8E9F-B7CD758B9CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE48811C-6255-4511-8E9F-B7CD758B9CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE48811C-6255-4511-8E9F-B7CD758B9CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3133D358-6A01-4FE6-9FB5-A522DAEE6052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3133D358-6A01-4FE6-9FB5-A522DAEE6052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3133D358-6A01-4FE6-9FB5-A522DAEE6052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3133D358-6A01-4FE6-9FB5-A522DAEE6052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AED9877-E785-43DD-B9BC-C031623E34C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AED9877-E785-43DD-B9BC-C031623E34C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AED9877-E785-43DD-B9BC-C031623E34C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AED9877-E785-43DD-B9BC-C031623E34C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
