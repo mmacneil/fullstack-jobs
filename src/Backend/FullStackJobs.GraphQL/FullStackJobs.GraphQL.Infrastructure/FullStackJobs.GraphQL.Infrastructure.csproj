@@ -6,7 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="autofac" Version="4.9.4" />
+    <PackageReference Include="GraphQL" Version="3.0.0-preview-1352" />
+    <PackageReference Include="GraphQL.Authorization" Version="3.0.38-preview-38" />
     <PackageReference Include="humanizer.core" Version="2.7.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="microsoft.entityframeworkcore" Version="3.1.0" />
     <PackageReference Include="microsoft.entityframeworkcore.design" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
@@ -19,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\FullStackJobs.GraphQL.Common\FullStackJobs.GraphQL.Common.csproj" />
     <ProjectReference Include="..\FullStackJobs.GraphQL.Core\FullStackJobs.GraphQL.Core.csproj" />
   </ItemGroup>
 
