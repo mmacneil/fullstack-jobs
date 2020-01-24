@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FullStackJobs.GraphQL.Common\FullStackJobs.GraphQL.Common.csproj" />
     <ProjectReference Include="..\FullStackJobs.GraphQL.Common\FullStackJobs.GraphQL.Common.csproj" />
     <ProjectReference Include="..\FullStackJobs.GraphQL.Core\FullStackJobs.GraphQL.Core.csproj" />
   </ItemGroup>
