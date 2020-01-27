@@ -33,6 +33,10 @@ namespace FullStackJobs.AuthServer
         {
             services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(_connectionStringName)));
         }
+        protected virtual void ConfigureIdentityDatabase(DbContextOptionsBuilder ctxBuilder)
+        {
+            ctxBuilder.UseSqlServer(Configuration.GetConnectionString(_connectionStringName));
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -47,7 +51,7 @@ namespace FullStackJobs.AuthServer
               // this adds the operational data from DB (codes, tokens, consents)
               .AddOperationalStore(options =>
               {
-                  options.ConfigureDbContext = ctxBuilder => ctxBuilder.UseSqlServer(Configuration.GetConnectionString(_connectionStringName));
+                  options.ConfigureDbContext = ConfigureIdentityDatabase;
                   // this enables automatic token cleanup. this is optional.
                   options.EnableTokenCleanup = true;
                   options.TokenCleanupInterval = 30; // interval in seconds

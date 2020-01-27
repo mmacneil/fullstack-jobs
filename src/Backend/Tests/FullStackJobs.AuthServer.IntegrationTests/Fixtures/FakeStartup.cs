@@ -1,6 +1,7 @@
 ﻿using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Testing.Support;
@@ -42,6 +43,11 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
         {
             base.ConfigureDatabase(services);
             services.AddInMemoryDataAccessServices<AppIdentityDbContext>();
+        }
+
+        protected override void ConfigureIdentityDatabase(DbContextOptionsBuilder ctxBuilder)
+        {
+            ctxBuilder.UseInMemoryDatabase("InMemoryDbForTesting");
         }
     }
 }
