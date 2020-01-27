@@ -1,7 +1,12 @@
 ﻿using Autofac;
+using FullStackJobs.GraphQL.Core.Domain.Values;
 using FullStackJobs.GraphQL.Core.Interfaces;
 using FullStackJobs.GraphQL.Core.Interfaces.Gateways.Repositories;
+using FullStackJobs.GraphQL.Infrastructure.GraphQL;
 using FullStackJobs.GraphQL.Infrastructure.GraphQL.Helpers;
+using FullStackJobs.GraphQL.Infrastructure.GraphQL.Types;
+using GraphQL;
+using GraphQL.Types;
 
 namespace FullStackJobs.GraphQL.Infrastructure
 {
@@ -12,6 +17,16 @@ namespace FullStackJobs.GraphQL.Infrastructure
             builder.RegisterAssemblyTypes(new[] { System.Reflection.Assembly.GetExecutingAssembly() }).AsClosedTypesOf(typeof(IRepository<>)).AsImplementedInterfaces();
             builder.RegisterType<Utilities.Humanizer>().As<IHumanizer>().SingleInstance();
             builder.RegisterType<ContextServiceLocator>().SingleInstance();
+            builder.RegisterType<FullStackJobsSchema>().As<ISchema>().SingleInstance();
+            builder.RegisterType<DocumentExecuter>().As<IDocumentExecuter>().SingleInstance();
+            builder.RegisterType<FullStackJobsQuery>().SingleInstance();
+            builder.RegisterType<FullStackJobsMutation>().SingleInstance();
+            builder.RegisterType<JobType>().SingleInstance();
+            builder.RegisterType<JobSummaryType>().SingleInstance();
+            builder.RegisterType<EnumerationGraphType<Status>>().SingleInstance();
+            builder.RegisterType<TagType>().SingleInstance();
+
+
         }
     }
 }

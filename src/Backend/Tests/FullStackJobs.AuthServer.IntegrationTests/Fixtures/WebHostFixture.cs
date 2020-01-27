@@ -35,6 +35,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
                   .UseKestrel((host, options) =>
                  {
                      options.Listen(IPEndPoint.Parse(Host));
+
                  })
                   .UseContentRoot(Path.Combine(Helpers.GetProjectPath(startupAssembly), startupAssembly.GetName().Name))
                   .UseEnvironment("Development")

@@ -1,18 +1,17 @@
-﻿using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 
 
-namespace FullStackJobs.AuthServer.IntegrationTests
+namespace Testing.Support
 {
     public static class ServiceCollectionExtensions
-    {
-        public static void AddInMemoryDataAccessServices(this IServiceCollection services)
+    {   
+        public static void AddInMemoryDataAccessServices<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
         {
             var descriptor = services.SingleOrDefault(
                    d => d.ServiceType ==
-                        typeof(DbContextOptions<AppIdentityDbContext>));
+                        typeof(DbContextOptions<TDbContext>));
 
             if (descriptor != null)
             {
@@ -20,7 +19,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests
             }
 
             // Add AppIdentityDbContext using an in-memory database for testing.
-            services.AddDbContext<AppIdentityDbContext>(options =>
+            services.AddDbContext<TDbContext>(options =>
             {
                 options.UseInMemoryDatabase("InMemoryDbForTesting");
             });
@@ -33,7 +32,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests
             using (var scope = sp.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
-                var db = scopedServices.GetRequiredService<AppIdentityDbContext>();
+                var db = scopedServices.GetRequiredService<TDbContext>();
 
                 // Ensure the database is created.
                 db.Database.EnsureCreated();

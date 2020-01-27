@@ -14,7 +14,7 @@
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:8787;http://localhost:5000"
+      "applicationUrl": "https://localhost:8787"
     }
   }
 }

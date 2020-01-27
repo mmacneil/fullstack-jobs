@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Testing.Support;
 
 namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
 {
@@ -39,7 +41,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
         protected override void ConfigureDatabase(IServiceCollection services)
         {
             base.ConfigureDatabase(services);
-            services.AddInMemoryDataAccessServices();
+            services.AddInMemoryDataAccessServices<AppIdentityDbContext>();
         }
     }
 }

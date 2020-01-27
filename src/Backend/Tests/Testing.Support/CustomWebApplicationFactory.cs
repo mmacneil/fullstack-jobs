@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace FullStackJobs.AuthServer.IntegrationTests
+namespace Testing.Support
 {
-    public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
+    public class CustomWebApplicationFactory<TStartup, TDbContext> : WebApplicationFactory<TStartup> where TStartup : class where TDbContext : DbContext
     {
         protected override IWebHostBuilder CreateWebHostBuilder()
         {
@@ -17,7 +17,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                services.AddInMemoryDataAccessServices();
+                services.AddInMemoryDataAccessServices<TDbContext>();
             });
         }
     }
