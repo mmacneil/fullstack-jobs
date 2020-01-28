@@ -31,7 +31,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
             var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
 
             _webHost = WebHost.CreateDefaultBuilder()
-                  .UseStartup<FakeStartup>()
+                  .UseStartup<TestStartup>()
                   .UseKestrel((host, options) =>
                  {
                      options.Listen(IPEndPoint.Parse(Host));

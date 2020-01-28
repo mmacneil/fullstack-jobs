@@ -14,7 +14,7 @@ using Xunit;
 namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
 {
     [Collection("WebHost collection")]
-    public class AccountsControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory<Startup, AppIdentityDbContext>>
+    public class AccountsControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory<Startup, TestStartup, AppIdentityDbContext>>
     {
         private static readonly IList<SignupRequest> _signupRequests = new List<SignupRequest>
         {
@@ -25,7 +25,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
         private readonly HttpClient _client;
         private readonly WebHostFixture _webHostFixture;
 
-        public AccountsControllerIntegrationTests(CustomWebApplicationFactory<Startup, AppIdentityDbContext> factory, WebHostFixture webHostFixture)
+        public AccountsControllerIntegrationTests(CustomWebApplicationFactory<Startup, TestStartup, AppIdentityDbContext> factory, WebHostFixture webHostFixture)
         {
             _client = factory.CreateClient();
             _webHostFixture = webHostFixture;

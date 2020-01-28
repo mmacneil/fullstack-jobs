@@ -94,7 +94,7 @@ namespace FullStackJobs.AuthServer
             {
                 builder.Run(async context =>
                 {
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;  
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
                     var error = context.Features.Get<IExceptionHandlerFeature>();

@@ -1,4 +1,5 @@
-﻿using FullStackJobs.GraphQL.Infrastructure.Data;
+﻿using FullStackJobs.GraphQL.Api.IntegrationTests.Fixtures;
+using FullStackJobs.GraphQL.Infrastructure.Data;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,11 +8,11 @@ using Xunit;
 
 namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
 {
-    public class GraphQLControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory<Startup, AppDbContext>>
+    public class GraphQLControllerIntegrationTests : IClassFixture<GraphQLApiWebApplicationFactory<AppDbContext>>
     {
         private readonly HttpClient _client;
 
-        public GraphQLControllerIntegrationTests(CustomWebApplicationFactory<Startup, AppDbContext> factory)
+        public GraphQLControllerIntegrationTests(GraphQLApiWebApplicationFactory<AppDbContext> factory)
         {
             _client = factory.CreateClient();
         }

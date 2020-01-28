@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using FullStackJobs.AuthServer.Models;
 using FullStackJobs.AuthServer.Models.ViewModels;
 using IdentityServer4.Events;
-
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace FullStackJobs.AuthServer.Controllers
 {
@@ -52,13 +53,12 @@ namespace FullStackJobs.AuthServer.Controllers
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("name", user.FullName));
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", model.Role));
-
-            // ToDo: We'll resotre this later when signup view and employer/applicant entities are implemented 
+           
             // Insert in entity table
-            // var commandText = $"INSERT {model.Role + "s"} (Id,Created,FullName) VALUES (@Id,getutcdate(),@FullName)";
-            // var id = new SqlParameter("@Id", user.Id);
-            // var name = new SqlParameter("@FullName", user.FullName);
-            // await _appIdentityDbContext.Database.ExecuteSqlRawAsync(commandText, id, name);
+            var commandText = $"INSERT {model.Role + "s"} (Id,Created,FullName) VALUES (@Id,getutcdate(),@FullName)";
+            var id = new SqlParameter("@Id", user.Id);
+            var name = new SqlParameter("@FullName", user.FullName);
+            await _appIdentityDbContext.Database.ExecuteSqlRawAsync(commandText, id, name);
 
             return Ok(new SignupResponse(user, model.Role));
         }

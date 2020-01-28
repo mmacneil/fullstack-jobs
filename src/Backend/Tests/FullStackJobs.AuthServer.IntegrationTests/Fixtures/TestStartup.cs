@@ -8,9 +8,9 @@ using Testing.Support;
 
 namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
 {
-    public class FakeStartup : Startup
+    public class TestStartup : Startup
     {
-        public FakeStartup(IConfiguration configuration, IWebHostEnvironment environment) : base(configuration, environment)
+        public TestStartup(IConfiguration configuration, IWebHostEnvironment environment) : base(configuration, environment)
         {
         }
 
@@ -47,7 +47,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
 
         protected override void ConfigureDatabase(DbContextOptionsBuilder ctxBuilder)
         {
-            ctxBuilder.UseInMemoryDatabase("InMemoryDbForTesting");
+            ctxBuilder.UseInMemoryDatabase(Testing.Support.Config.InMemoryDatabase);
         }
     }
 }

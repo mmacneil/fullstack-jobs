@@ -6,7 +6,7 @@ using System.Linq;
 namespace Testing.Support
 {
     public static class ServiceCollectionExtensions
-    {   
+    {
         public static void AddInMemoryDataAccessServices<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
         {
             var descriptor = services.SingleOrDefault(
@@ -21,7 +21,7 @@ namespace Testing.Support
             // Add AppIdentityDbContext using an in-memory database for testing.
             services.AddDbContext<TDbContext>(options =>
             {
-                options.UseInMemoryDatabase("InMemoryDbForTesting");
+                options.UseInMemoryDatabase(Config.InMemoryDatabase);
             });
 
             // Build the service provider.
@@ -37,10 +37,7 @@ namespace Testing.Support
                 // Ensure the database is created.
                 db.Database.EnsureCreated();
 
-                // Other setup steps like seeding the database can go here...
-
-                // Seed the database with test data.
-                //Utilities.InitializeDbForTests(db);                
+                // Other setup steps like seeding the database can go here...               
             }
         }
     }
