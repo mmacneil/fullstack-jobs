@@ -8,13 +8,12 @@ using FullStackJobs.AuthServer.IntegrationTests.Fixtures;
 using FullStackJobs.AuthServer.Models;
 using Newtonsoft.Json;
 using PuppeteerSharp;
-using Testing.Support;
 using Xunit;
 
 namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
 {
     [Collection("WebHost collection")]
-    public class AccountsControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory<Startup, TestStartup, AppIdentityDbContext>>
+    public class AccountsControllerIntegrationTests : IClassFixture<AuthServerWebApplicationFactory<TestStartup, AppIdentityDbContext>>
     {
         private static readonly IList<SignupRequest> _signupRequests = new List<SignupRequest>
         {
@@ -25,7 +24,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
         private readonly HttpClient _client;
         private readonly WebHostFixture _webHostFixture;
 
-        public AccountsControllerIntegrationTests(CustomWebApplicationFactory<Startup, TestStartup, AppIdentityDbContext> factory, WebHostFixture webHostFixture)
+        public AccountsControllerIntegrationTests(AuthServerWebApplicationFactory<TestStartup, AppIdentityDbContext> factory, WebHostFixture webHostFixture)
         {
             _client = factory.CreateClient();
             _webHostFixture = webHostFixture;
@@ -59,7 +58,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
                 Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(_signupRequests[1]), Encoding.UTF8, "application/json")
             });
 
-            httpResponse.EnsureSuccessStatusCode(); 
+            httpResponse.EnsureSuccessStatusCode();
 
             // 2. Ensure PuppeteerSharp has the browser downloaded
             await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
@@ -92,7 +91,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Controllers
                     Assert.Contains("pterrell@mailinator.com", content);
                     Assert.Contains("employer", content);
                 }
-            };
+            }
         }
     }
 }

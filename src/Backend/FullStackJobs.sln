@@ -23,9 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackJobs.GraphQL.Commo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackJobs.GraphQL.Api", "FullStackJobs.GraphQL\FullStackJobs.GraphQL.Api\FullStackJobs.GraphQL.Api.csproj", "{B072F535-C32B-4F14-AE22-2EC5C3248E2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullStackJobs.GraphQL.Api.IntegrationTests", "Tests\FullStackJobs.GraphQL.Api.IntegrationTests\FullStackJobs.GraphQL.Api.IntegrationTests.csproj", "{0DE7CE42-65E7-4BB4-AC21-9B28E7633822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackJobs.GraphQL.Api.IntegrationTests", "Tests\FullStackJobs.GraphQL.Api.IntegrationTests\FullStackJobs.GraphQL.Api.IntegrationTests.csproj", "{0DE7CE42-65E7-4BB4-AC21-9B28E7633822}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Support", "Tests\Testing.Support\Testing.Support.csproj", "{F8A26B88-080E-425A-987A-A6249B0BE04E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Support", "Tests\Testing.Support\Testing.Support.csproj", "{9BD62CF8-D322-4FBA-9DDB-78E06F634408}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +65,10 @@ Global
 		{0DE7CE42-65E7-4BB4-AC21-9B28E7633822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DE7CE42-65E7-4BB4-AC21-9B28E7633822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DE7CE42-65E7-4BB4-AC21-9B28E7633822}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8A26B88-080E-425A-987A-A6249B0BE04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8A26B88-080E-425A-987A-A6249B0BE04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8A26B88-080E-425A-987A-A6249B0BE04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8A26B88-080E-425A-987A-A6249B0BE04E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BD62CF8-D322-4FBA-9DDB-78E06F634408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BD62CF8-D322-4FBA-9DDB-78E06F634408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BD62CF8-D322-4FBA-9DDB-78E06F634408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BD62CF8-D322-4FBA-9DDB-78E06F634408}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,7 +82,7 @@ Global
 		{99737FBA-3797-4A84-A8E0-0C5C69BB2EBE} = {D3E122B4-9408-4C85-B930-80238BB1FEC4}
 		{B072F535-C32B-4F14-AE22-2EC5C3248E2D} = {D3E122B4-9408-4C85-B930-80238BB1FEC4}
 		{0DE7CE42-65E7-4BB4-AC21-9B28E7633822} = {6BBB9578-A245-4B9D-99A2-3EF7F7D03FDD}
-		{F8A26B88-080E-425A-987A-A6249B0BE04E} = {6BBB9578-A245-4B9D-99A2-3EF7F7D03FDD}
+		{9BD62CF8-D322-4FBA-9DDB-78E06F634408} = {6BBB9578-A245-4B9D-99A2-3EF7F7D03FDD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B6B6E58-100E-4F42-A015-9D70BC0F256F}

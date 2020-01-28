@@ -5,8 +5,14 @@ using System.Linq;
 
 namespace Testing.Support
 {
-    public static class ServiceCollectionExtensions
+    public static class Configuration
     {
+        public static string InMemoryDatabase = "InMemoryDbForTesting";
+        public static void UseInMemoryDatabase(this DbContextOptionsBuilder ctxBuilder)
+        {
+            ctxBuilder.UseInMemoryDatabase(InMemoryDatabase);
+        }
+
         public static void AddInMemoryDataAccessServices<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
         {
             var descriptor = services.SingleOrDefault(
@@ -21,14 +27,13 @@ namespace Testing.Support
             // Add AppIdentityDbContext using an in-memory database for testing.
             services.AddDbContext<TDbContext>(options =>
             {
-                options.UseInMemoryDatabase(Config.InMemoryDatabase);
+                options.UseInMemoryDatabase();
             });
 
             // Build the service provider.
             var sp = services.BuildServiceProvider();
 
-            // Create a scope to obtain a reference to the database
-            // context (ApplicationDbContext).
+            // Create a scope to obtain a reference to the database context
             using (var scope = sp.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;

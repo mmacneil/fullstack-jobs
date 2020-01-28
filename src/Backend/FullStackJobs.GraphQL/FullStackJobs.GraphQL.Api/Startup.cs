@@ -1,7 +1,6 @@
 using Autofac;
 using FullStackJobs.GraphQL.Api.Extensions;
 using FullStackJobs.GraphQL.Infrastructure;
-using FullStackJobs.GraphQL.Infrastructure.Data;
 using FullStackJobs.GraphQL.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -25,11 +24,10 @@ namespace FullStackJobs.GraphQL.Api
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public virtual void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddContext(Configuration.GetConnectionString("Default"));
             services.AddControllers().AddNewtonsoftJson();
-
             services.AddHttpContextAccessor();
         }
 
@@ -43,7 +41,7 @@ namespace FullStackJobs.GraphQL.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

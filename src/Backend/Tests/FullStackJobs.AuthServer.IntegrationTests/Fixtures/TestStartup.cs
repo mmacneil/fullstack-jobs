@@ -1,5 +1,4 @@
 ﻿using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,31 +13,6 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
         {
         }
 
-        public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            base.Configure(app, env);
-        }
-
-        public override void ConfigureServices(IServiceCollection services)
-        {
-            base.ConfigureServices(services);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
         protected override void AddDbContext(IServiceCollection services)
         {
             base.AddDbContext(services);
@@ -47,7 +21,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
 
         protected override void ConfigureDatabase(DbContextOptionsBuilder ctxBuilder)
         {
-            ctxBuilder.UseInMemoryDatabase(Testing.Support.Config.InMemoryDatabase);
+            ctxBuilder.UseInMemoryDatabase();
         }
     }
 }

@@ -14,6 +14,8 @@ namespace FullStackJobs.GraphQL.Infrastructure.Data
         {
         }
 
+        public DbSet<Job> Jobs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Job>(ConfigureJob);

@@ -1,4 +1,5 @@
-﻿using FullStackJobs.GraphQL.Api.IntegrationTests.Fixtures;
+﻿using System.Linq;
+using FullStackJobs.GraphQL.Api.IntegrationTests.Fixtures;
 using FullStackJobs.GraphQL.Infrastructure.Data;
 using System.Net.Http;
 using System.Text;
@@ -32,13 +33,11 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
 
             httpResponse.EnsureSuccessStatusCode();
 
-            // Deserialize and examine results.
-            /*var stringResponse = await httpResponse.Content.ReadAsStringAsync();
-            var response = JsonConvert.DeserializeObject<SignupResponse>(stringResponse);
-            Assert.Equal(_signupRequests[0].FullName, response.FullName);
-            Assert.Equal(_signupRequests[0].Email, response.Email);
-            Assert.Equal(_signupRequests[0].Role, response.Role);
-            Assert.True(Guid.TryParse(response.Id, out _));*/
+            // Use a separate instance of the context to verify correct data was saved to the database
+            await using var context = DbContextFactory.MakeInMemoryProviderDbContext<AppDbContext>(Configuration.InMemoryDatabase);
+            var job = context.Jobs.First();
+            Assert.Equal("1", job.EmployerId);
+            Assert.Equal("Untitled Position", job.Position);
         }
     }
 }

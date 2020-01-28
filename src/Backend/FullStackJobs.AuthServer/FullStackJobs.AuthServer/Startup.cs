@@ -31,7 +31,7 @@ namespace FullStackJobs.AuthServer
 
         protected virtual void AddDbContext(IServiceCollection services)
         {
-            services.AddDbContext<AppIdentityDbContext>(options => ConfigureDatabase(options));
+            services.AddDbContext<AppIdentityDbContext>(ConfigureDatabase);
         }
 
         protected virtual void ConfigureDatabase(DbContextOptionsBuilder ctxBuilder)
@@ -41,7 +41,7 @@ namespace FullStackJobs.AuthServer
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public virtual void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             AddDbContext(services);
 
@@ -83,7 +83,7 @@ namespace FullStackJobs.AuthServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
