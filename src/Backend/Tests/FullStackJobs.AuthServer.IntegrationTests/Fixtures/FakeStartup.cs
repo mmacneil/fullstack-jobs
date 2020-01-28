@@ -39,13 +39,13 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
             return base.ToString();
         }
 
-        protected override void ConfigureDatabase(IServiceCollection services)
+        protected override void AddDbContext(IServiceCollection services)
         {
-            base.ConfigureDatabase(services);
+            base.AddDbContext(services);
             services.AddInMemoryDataAccessServices<AppIdentityDbContext>();
         }
 
-        protected override void ConfigureIdentityDatabase(DbContextOptionsBuilder ctxBuilder)
+        protected override void ConfigureDatabase(DbContextOptionsBuilder ctxBuilder)
         {
             ctxBuilder.UseInMemoryDatabase("InMemoryDbForTesting");
         }

@@ -29,11 +29,12 @@ namespace FullStackJobs.AuthServer
             Environment = environment;
         }
 
-        protected virtual void ConfigureDatabase(IServiceCollection services)
+        protected virtual void AddDbContext(IServiceCollection services)
         {
-            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(_connectionStringName)));
+            services.AddDbContext<AppIdentityDbContext>(options => ConfigureDatabase(options));
         }
-        protected virtual void ConfigureIdentityDatabase(DbContextOptionsBuilder ctxBuilder)
+
+        protected virtual void ConfigureDatabase(DbContextOptionsBuilder ctxBuilder)
         {
             ctxBuilder.UseSqlServer(Configuration.GetConnectionString(_connectionStringName));
         }
@@ -42,7 +43,7 @@ namespace FullStackJobs.AuthServer
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            ConfigureDatabase(services);
+            AddDbContext(services);
 
             services.AddIdentity<AppUser, IdentityRole>()
             .AddEntityFrameworkStores<AppIdentityDbContext>();
@@ -51,7 +52,7 @@ namespace FullStackJobs.AuthServer
               // this adds the operational data from DB (codes, tokens, consents)
               .AddOperationalStore(options =>
               {
-                  options.ConfigureDbContext = ConfigureIdentityDatabase;
+                  options.ConfigureDbContext = ConfigureDatabase;
                   // this enables automatic token cleanup. this is optional.
                   options.EnableTokenCleanup = true;
                   options.TokenCleanupInterval = 30; // interval in seconds
@@ -93,7 +94,7 @@ namespace FullStackJobs.AuthServer
             {
                 builder.Run(async context =>
                 {
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;  
                     context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
                     var error = context.Features.Get<IExceptionHandlerFeature>();
