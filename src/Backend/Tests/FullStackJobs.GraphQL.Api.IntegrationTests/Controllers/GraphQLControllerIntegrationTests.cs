@@ -25,13 +25,17 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
             {
                 Content = new StringContent(@" { 'query': 
                                                 'mutation($input: CreateJobInput!) {
-                                                   createJob(input: $input) { 
+                                                   createJob(input: $input) {
+                                                     id
                                                      position
                                                    }
                                                 }','variables':null}", Encoding.UTF8, "application/json")
             });
 
             httpResponse.EnsureSuccessStatusCode();
+
+            var content = await httpResponse.Content.ReadAsStringAsync();
+            Assert.Equal(@"{""data"":{""createJob"":{""id"":1,""position"":""Untitled Position""}}}", content);
 
             // Use a separate instance of the context to verify correct data was saved to the database
             await using var context = DbContextFactory.MakeInMemoryProviderDbContext<AppDbContext>(Configuration.InMemoryDatabase);
