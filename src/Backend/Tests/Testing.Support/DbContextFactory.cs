@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Testing.Support
 {
-    public class DbContextFactory
+    public static class DbContextFactory
     {
         public static TDbContext MakeInMemoryProviderDbContext<TDbContext>(string databaseName) where TDbContext : DbContext
         {
