@@ -12,13 +12,12 @@ namespace FullStackJobs.GraphQL.Infrastructure.GraphQL.Types
     {
         public JobType(ContextServiceLocator contextServiceLocator)
         {
-            //this.AuthorizeWith(Policies.Employer);
             Field(x => x.Id);
             Field(x => x.Position);
             Field(x => x.Company, true);
             Field(x => x.Icon);
             Field(x => x.Location, true);
-            Field(x => x.AnnualBaseSalary, true); // ToDo: add me back when implementing auth -> .AuthorizeWith(Policies.Employer);
+            Field(x => x.AnnualBaseSalary, true).AuthorizeWith(Policies.Employer);
             Field(x => x.Description, true);
             Field(x => x.Responsibilities, true);
             Field(x => x.Requirements, true);

@@ -14,7 +14,7 @@ namespace Testing.Support
                 new Claim(ClaimTypes.NameIdentifier, "1"),
                 new Claim(ClaimTypes.Name, "Test user"),
                 new Claim(ClaimTypes.Email, "test@fullstackjobs.com"),
-                new Claim(ClaimTypes.Role, "Employer")
+                new Claim(ClaimTypes.Role, "employer")
             }));
 
             await next();

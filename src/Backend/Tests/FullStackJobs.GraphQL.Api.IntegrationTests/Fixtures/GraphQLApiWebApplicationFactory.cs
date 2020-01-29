@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FullStackJobs.GraphQL.Core.Domain.Entities;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -30,9 +31,9 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Fixtures
                 using (var serviceScope = configureApp.ApplicationServices.CreateScope())
                 {
                     var services = serviceScope.ServiceProvider;
-                    var dbContext = services.GetService<TDbContext>();
-                    // Any seeding goes here...
-                    // dbContext.Add(...
+                    var dbContext = services.GetService<TDbContext>();                    
+                    dbContext.Add(Job.Build("123", "C# Ninja", "logo.png"));
+                    dbContext.SaveChanges();
                 }
 
                 // The actual Configure() never gets called (unlike ConfigureServices) so we must add routing to the TestServer's pipeline

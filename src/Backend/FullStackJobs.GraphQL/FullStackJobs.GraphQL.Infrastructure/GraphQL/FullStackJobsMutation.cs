@@ -32,7 +32,7 @@ namespace FullStackJobs.GraphQL.Infrastructure.GraphQL
             FieldAsync<JobType>(
               "createJob",
               resolve: async context => await contextServiceLocator.JobRepository.Add(Job.Build(context.GetUserId(),
-                  "Untitled Position", $"icon-{new Random().Next(1, 4)}.png"))); //ToDo: add me back when implementing auth -> .AuthorizeWith(Policies.Employer);
+                  "Untitled Position", $"icon-{new Random().Next(1, 4)}.png"))).AuthorizeWith(Policies.Employer);
 
             /*
             FieldAsync<JobType>(

@@ -2,6 +2,8 @@ using Autofac;
 using FullStackJobs.GraphQL.Api.Extensions;
 using FullStackJobs.GraphQL.Infrastructure;
 using FullStackJobs.GraphQL.Infrastructure.Extensions;
+using FullStackJobs.GraphQL.Infrastructure.GraphQL.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -27,8 +29,22 @@ namespace FullStackJobs.GraphQL.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddContext(Configuration.GetConnectionString("Default"));
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
+                o.Authority = "https://localhost:5066";
+                o.Audience = "resourceapi";
+                o.RequireHttpsMetadata = false;
+            });
+
+
             services.AddControllers().AddNewtonsoftJson();
             services.AddHttpContextAccessor();
+            services.AddGraphQLAuth();
         }
 
         // ConfigureContainer is where you can register things directly
@@ -67,6 +83,7 @@ namespace FullStackJobs.GraphQL.Api
 
             app.UseRouting();
             app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseAuthentication();
 
             app.UseGraphiql("/graphiql", options =>
             {
