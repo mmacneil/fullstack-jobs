@@ -11,7 +11,7 @@ namespace Testing.Support
         {
             context.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, "1"),
+                new Claim(ClaimTypes.NameIdentifier, "123"),
                 new Claim(ClaimTypes.Name, "Test user"),
                 new Claim(ClaimTypes.Email, "test@fullstackjobs.com"),
                 new Claim(ClaimTypes.Role, "employer")
