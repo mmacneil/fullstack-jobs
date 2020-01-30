@@ -3,11 +3,12 @@ using FullStackJobs.GraphQL.Core.Domain.Entities;
 using FullStackJobs.GraphQL.Infrastructure.GraphQL.Extensions;
 using FullStackJobs.GraphQL.Infrastructure.GraphQL.Helpers;
 using FullStackJobs.GraphQL.Infrastructure.GraphQL.Types;
+using FullStackJobs.GraphQL.Infrastructure.GraphQL.Types.Input;
 using GraphQL.Authorization;
 using GraphQL.Types;
 using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace FullStackJobs.GraphQL.Infrastructure.GraphQL
 {
@@ -34,7 +35,6 @@ namespace FullStackJobs.GraphQL.Infrastructure.GraphQL
               resolve: async context => await contextServiceLocator.JobRepository.Add(Job.Build(context.GetUserId(),
                   "Untitled Position", $"icon-{new Random().Next(1, 4)}.png"))).AuthorizeWith(Policies.Employer);
 
-            /*
             FieldAsync<JobType>(
                 "updateJob",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<UpdateJobInputType>> { Name = "input" }),
@@ -61,7 +61,6 @@ namespace FullStackJobs.GraphQL.Infrastructure.GraphQL
                     return job;
 
                 }).AuthorizeWith(Policies.Employer);
-                */
         }
     }
 }
