@@ -16,7 +16,6 @@ namespace FullStackJobs.GraphQL.Infrastructure.GraphQL
     {
         public FullStackJobsMutation(ContextServiceLocator contextServiceLocator)
         {
-            /*
             FieldAsync<JobSummaryType>(
                 "createApplication",
                  arguments: new QueryArguments(new QueryArgument<NonNullGraphType<CreateApplicationInputType>> { Name = "input" }),
@@ -28,7 +27,6 @@ namespace FullStackJobs.GraphQL.Infrastructure.GraphQL
                     await contextServiceLocator.JobRepository.Update(job);
                     return job;
                 }).AuthorizeWith(Policies.Applicant);
-                */
 
             FieldAsync<JobType>(
               "createJob",

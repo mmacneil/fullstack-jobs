@@ -28,6 +28,7 @@ namespace FullStackJobs.GraphQL.Infrastructure
             builder.RegisterType<TagType>().SingleInstance();
             builder.RegisterType<UpdateJobInputType>().SingleInstance();
             builder.RegisterType<TagInputType>().SingleInstance();
+            builder.RegisterType<CreateApplicationInputType>().SingleInstance();
         }
     }
 }

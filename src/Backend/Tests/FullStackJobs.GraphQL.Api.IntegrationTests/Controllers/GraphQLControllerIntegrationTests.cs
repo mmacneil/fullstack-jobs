@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using FullStackJobs.GraphQL.Api.IntegrationTests.Fixtures;
 using FullStackJobs.GraphQL.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,14 +11,12 @@ using System;
 
 namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
 {
-    public sealed class GraphQLControllerIntegrationTests : IClassFixture<GraphQLApiWebApplicationFactory<AppDbContext>>, IDisposable
+    public sealed class GraphQLControllerIntegrationTests : IntegrationTestBase<AppDbContext, Startup>, IDisposable
     {
-        private readonly HttpClient _client;
         private readonly AppDbContext _dbContext;
 
-        public GraphQLControllerIntegrationTests(GraphQLApiWebApplicationFactory<AppDbContext> factory)
+        public GraphQLControllerIntegrationTests(FullStackJobsApplicationFactory<Startup> factory) : base(factory)
         {
-            _client = factory.CreateClient();
             _dbContext = DbContextFactory.MakeInMemoryProviderDbContext<AppDbContext>(Configuration.InMemoryDatabase);
         }
 
@@ -28,10 +26,15 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
             _dbContext.Dispose();
         }
 
+        #region Mutations
+
         [Fact]
         public async Task CanCreateJob()
         {
-            var httpResponse = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
+            // arrange 
+            var client = GetFactory(isEmployer: true).CreateClient();
+
+            var httpResponse = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
             {
                 Content = new StringContent(@" { ""query"": 
                                                 ""mutation($input: CreateJobInput!) {
@@ -56,10 +59,13 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
         [Fact]
         public async Task CanUpdateJob()
         {
+            // arrange 
+            var client = GetFactory(isEmployer: true).CreateClient();
+
             _dbContext.Add(EntityFactory.MakeJob("123", "C# Ninja"));
             _dbContext.SaveChanges();
 
-            var httpResponse = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
+            var httpResponse = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
             {
                 Content = new StringContent(@" { ""query"": 
                                                 ""mutation($input: UpdateJobInput!) {
@@ -76,15 +82,50 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
             Assert.Equal("test-update", job.Position);
         }
 
+        [Fact]
+        public async Task CanCreateApplication()
+        {
+            // arrange 
+            var client = GetFactory(isApplicant: true).CreateClient();
+            _dbContext.Add(EntityFactory.MakeJob("1", "C# Ninja"));
+            _dbContext.SaveChanges();
+
+            var httpResponse = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
+            {
+                Content = new StringContent(@" { ""query"": 
+                                                ""mutation($input: CreateApplicationInput!) {
+                                                   createApplication(input: $input) { 
+                                                     id,
+                                                     position,   
+                                                     applicantCount
+                                                   }
+                                                }"",""variables"":{""input"": {""jobId"": 1}} }", Encoding.UTF8, "application/json")
+            });
+
+            httpResponse.EnsureSuccessStatusCode();
+
+            // Use a separate instance of the context to verify correct data was saved to the database
+            await using var context = DbContextFactory.MakeInMemoryProviderDbContext<AppDbContext>(Configuration.InMemoryDatabase);
+            var job = context.Jobs.Include(j => j.JobApplicants).Single(j => j.Id == 1);
+            Assert.Single(job.JobApplicants);
+            Assert.Equal("123", job.JobApplicants.First().ApplicantId); // The id value obtained from the user claim
+        }
+
+        #endregion Mutations
+
+        #region Queries
+
         [Theory]
         [InlineData(1)]
         public async Task CanFetchJob(int id)
         {
-            // arrange
+            // arrange 
+            var client = GetFactory().CreateClient();
+
             _dbContext.Add(EntityFactory.MakeJob("123", "C# Ninja"));
             _dbContext.SaveChanges();
 
-            var httpResponse = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
+            var httpResponse = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
             {
                 Content = new StringContent($@"{{""query"":""query FullStackJobsQuery($id: Int!)
                                                 {{
@@ -111,12 +152,14 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
         [Fact]
         public async Task CanFetchEmployerJobs()
         {
-            // arrange
+            // arrange 
+            var client = GetFactory(isEmployer: true).CreateClient();
+
             _dbContext.Add(EntityFactory.MakeJob("123", "C# Ninja"));
             _dbContext.Add(EntityFactory.MakeEmployer("123"));
             _dbContext.SaveChanges();
 
-            var httpResponse = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
+            var httpResponse = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
             {
                 Content = new StringContent(@"{""query"":""query FullStackJobsQuery
                                                 {
@@ -139,11 +182,13 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
         [Fact]
         public async Task CanFetchPublicJobs()
         {
-            // arrange
+            // arrange 
+            var client = GetFactory().CreateClient();
+
             _dbContext.Add(EntityFactory.MakeJob("", "C# Ninja", true));
             _dbContext.SaveChanges();
 
-            var httpResponse = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
+            var httpResponse = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
             {
                 Content = new StringContent(@"{""query"":""query FullStackJobsQuery
                                                 {
@@ -162,6 +207,8 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
             var content = await httpResponse.Content.ReadAsStringAsync();
             Assert.Equal(@"{""data"":{""publicJobs"":[{""id"":1,""position"":""C# Ninja"",""status"":""PUBLISHED""}]}}", content);
         }
+
+        #endregion Queries
     }
 }
 
