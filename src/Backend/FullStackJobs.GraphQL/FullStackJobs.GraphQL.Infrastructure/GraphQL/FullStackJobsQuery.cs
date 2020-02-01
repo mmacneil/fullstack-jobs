@@ -14,8 +14,7 @@ namespace FullStackJobs.GraphQL.Infrastructure.GraphQL
         public FullStackJobsQuery(ContextServiceLocator contextServiceLocator)
         {
             FieldAsync<JobType>("job",
-                arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "id" }),
-                // Extract the user id from the name claim to fetch the target employer's job
+                arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "id" }),               
                 resolve: async context => await contextServiceLocator.JobRepository.GetSingleBySpec(new JobSpecification(j => j.Id == context.GetArgument<int>("id", default))));
 
             FieldAsync<ListGraphType<JobSummaryType>>("employerJobs",
