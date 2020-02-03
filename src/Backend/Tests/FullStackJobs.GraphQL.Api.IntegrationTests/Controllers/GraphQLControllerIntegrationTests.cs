@@ -149,6 +149,7 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
         public async Task CantFetchAnnualBaseSalaryAsApplicant(int id)
         {
             // arrange 
+            // acting as an applicant
             var client = GetFactory(isApplicant: true).CreateClient();
 
             _dbContext.Add(EntityFactory.MakeJob("123", "C# Ninja"));
