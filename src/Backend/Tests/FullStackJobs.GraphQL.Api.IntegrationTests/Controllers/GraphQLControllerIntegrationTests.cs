@@ -140,13 +140,7 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
             httpResponse.EnsureSuccessStatusCode();
 
             var content = await httpResponse.Content.ReadAsStringAsync();
-            Assert.Equal(@"{""data"":{""job"":{""position"":""C# Ninja""}}}", content);
-
-            // Use a separate instance of the context to verify correct data was saved to the database
-            await using var context = DbContextFactory.MakeInMemoryProviderDbContext<AppDbContext>(Configuration.InMemoryDatabase);
-            var job = context.Jobs.Single(j => j.Id == 1);
-            Assert.Equal("123", job.EmployerId);
-            Assert.Equal("C# Ninja", job.Position);
+            Assert.Equal(@"{""data"":{""job"":{""position"":""C# Ninja""}}}", content);          
         }
 
         [Fact]
