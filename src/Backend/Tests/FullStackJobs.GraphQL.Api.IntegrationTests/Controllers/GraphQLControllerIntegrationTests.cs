@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Testing.Support;
 using Xunit;
 using System;
-
+using System.Net;
 
 namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
 {
@@ -142,6 +142,63 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
 
             var content = await httpResponse.Content.ReadAsStringAsync();
             Assert.Equal(@"{""data"":{""job"":{""id"":1,""position"":""C# Ninja""}}}", content);          
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public async Task CantFetchAnnualBaseSalaryAsApplicant(int id)
+        {
+            // arrange 
+            var client = GetFactory(isApplicant: true).CreateClient();
+
+            _dbContext.Add(EntityFactory.MakeJob("123", "C# Ninja"));
+            _dbContext.SaveChanges();
+
+            var httpResponse = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
+            {
+                Content = new StringContent($@"{{""query"":""query FullStackJobsQuery($id: Int!)
+                                                {{
+                                                    job(id: $id) {{
+                                                        id
+                                                        position
+                                                        annualBaseSalary
+                                                    }}
+                                                }}"",
+                                                ""variables"":{{""id"":{id}}},
+                                                ""operationName"":""FullStackJobsQuery""}}", Encoding.UTF8, "application/json")
+            });
+
+            Assert.Equal(HttpStatusCode.BadRequest, httpResponse.StatusCode);            
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public async Task CanFetchAnnualBaseSalaryAsEmployer(int id)
+        {
+            // arrange 
+            var client = GetFactory(isEmployer: true).CreateClient();
+
+            _dbContext.Add(EntityFactory.MakeJob("123", "C# Ninja"));
+            _dbContext.SaveChanges();
+
+            var httpResponse = await client.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/graphql")
+            {
+                Content = new StringContent($@"{{""query"":""query FullStackJobsQuery($id: Int!)
+                                                {{
+                                                    job(id: $id) {{
+                                                        id
+                                                        position
+                                                        annualBaseSalary
+                                                    }}
+                                                }}"",
+                                                ""variables"":{{""id"":{id}}},
+                                                ""operationName"":""FullStackJobsQuery""}}", Encoding.UTF8, "application/json")
+            });
+
+            httpResponse.EnsureSuccessStatusCode();
+
+            var content = await httpResponse.Content.ReadAsStringAsync();
+            Assert.Equal(@"{""data"":{""job"":{""id"":1,""position"":""C# Ninja"",""annualBaseSalary"":null}}}", content);
         }
 
         [Fact]
