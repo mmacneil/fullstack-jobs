@@ -130,6 +130,7 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
                 Content = new StringContent($@"{{""query"":""query FullStackJobsQuery($id: Int!)
                                                 {{
                                                     job(id: $id) {{
+                                                        id
                                                         position   
                                                     }}
                                                 }}"",
@@ -140,7 +141,7 @@ namespace FullStackJobs.GraphQL.Api.IntegrationTests.Controllers
             httpResponse.EnsureSuccessStatusCode();
 
             var content = await httpResponse.Content.ReadAsStringAsync();
-            Assert.Equal(@"{""data"":{""job"":{""position"":""C# Ninja""}}}", content);          
+            Assert.Equal(@"{""data"":{""job"":{""id"":1,""position"":""C# Ninja""}}}", content);          
         }
 
         [Fact]
