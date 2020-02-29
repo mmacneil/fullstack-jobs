@@ -66,7 +66,26 @@ If you need to change these locations for your environment there are several spo
 
 *Angular*
  
-- The `RESOURCE_BASE_URI` and `AUTH_BASE_URI` values in the [config service](https://github.com/mmacneil/fullstack-jobs/blob/master/src/Frontend/Spa/src/app/core/services/config.service.ts). 
+- The `RESOURCE_BASE_URI` and `AUTH_BASE_URI` values in the [config service](https://github.com/mmacneil/fullstack-jobs/blob/master/src/Frontend/Spa/src/app/core/services/config.service.ts).
+
+*FullStackJobs.GraphQL*
+
+- The OpendIDConnect `Authority` in [Startup](https://github.com/mmacneil/fullstack-jobs/blob/master/src/Backend/FullStackJobs.GraphQL/FullStackJobs.GraphQL.Api/Startup.cs)
+
+<pre><code>
+services.AddAuthentication(options =&gt;
+{
+  options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+  options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =&gt;
+{
+  o.Authority = &quot;https://localhost:8787&quot;;
+  o.Audience = &quot;resourceapi&quot;;
+  o.RequireHttpsMetadata = false;
+});
+</code>
+</pre>
+
 
 #### Contact
 
