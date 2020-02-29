@@ -36,7 +36,7 @@ namespace FullStackJobs.GraphQL.Api
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(o =>
             {
-                o.Authority = "https://localhost:5066";
+                o.Authority = "https://localhost:8787";
                 o.Audience = "resourceapi";
                 o.RequireHttpsMetadata = false;
             });
