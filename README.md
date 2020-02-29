@@ -72,8 +72,7 @@ If you need to change these locations for your environment there are several spo
 
 - The OpendIDConnect `Authority` in [Startup](https://github.com/mmacneil/fullstack-jobs/blob/master/src/Backend/FullStackJobs.GraphQL/FullStackJobs.GraphQL.Api/Startup.cs)
 
-<pre><code>
-services.AddAuthentication(options =&gt;
+<pre><code>services.AddAuthentication(options =&gt;
 {
   options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
   options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
