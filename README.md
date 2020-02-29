@@ -66,7 +66,7 @@ If you need to change these locations for your environment there are several spo
 
 *Angular*
  
-- The `RESOURCE_BASE_URI` and `AUTH_BASE_URI` values in he [configuration service](https://github.com/mmacneil/fullstack-jobs/blob/master/src/Frontend/Spa/src/app/core/services/config.service.ts). 
+- The `RESOURCE_BASE_URI` and `AUTH_BASE_URI` values in the [config service](https://github.com/mmacneil/fullstack-jobs/blob/master/src/Frontend/Spa/src/app/core/services/config.service.ts). 
 
 #### Contact
 
