@@ -11,6 +11,9 @@ Part 3: [Implementing an ASP.NET Core GraphQL API with authorization using Graph
 
 Part 4: [Integrating Angular with a backend GraphQL API using Apollo Client ](https://fullstackmark.com/post/25/build-an-authenticated-graphql-app-with-angular-aspnet-core-and-identityserver-part-4)
 
+![alt text](https://raw.githubusercontent.com/mmacneil/fullstack-jobs/master/docs/img/angular-aspnet-core-job-application-flow.gif "Build an Authenticated GraphQL App with Angular, ASP.NET Core and IdentityServer")
+
+![alt text](https://github.com/mmacneil/fullstack-jobs/blob/master/docs/img/angular-aspnet-core-job-edit-flow.gif "Build an Authenticated GraphQL App with Angular, ASP.NET Core and IdentityServer")
 
 ## Development Environment
 
@@ -89,7 +92,3 @@ If you need to change these locations for your environment there are several spo
 #### Contact
 
 mark@fullstackmark.com
- 
-![alt text](https://raw.githubusercontent.com/mmacneil/fullstack-jobs/master/docs/img/angular-aspnet-core-job-application-flow.gif "Build an Authenticated GraphQL App with Angular, ASP.NET Core and IdentityServer")
-
-![alt text](https://github.com/mmacneil/fullstack-jobs/blob/master/docs/img/angular-aspnet-core-job-edit-flow.gif "Build an Authenticated GraphQL App with Angular, ASP.NET Core and IdentityServer")
