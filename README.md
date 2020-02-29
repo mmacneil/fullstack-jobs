@@ -5,7 +5,12 @@ Based on the multi part tutorial series:
 
 Part 1: [Building an ASP.NET Core auth server using IdentityServer](https://fullstackmark.com/post/22/build-an-authenticated-graphql-app-with-angular-aspnet-core-and-identityserver-part-1)
 
-Part 2: [Angular app foundation with user signup and login features ](https://fullstackmark.com/post/23/build-an-authenticated-graphql-app-with-angular-aspnet-core-and-identityserver-part-2)
+Part 2: [Angular app foundation with user signup and login features](https://fullstackmark.com/post/23/build-an-authenticated-graphql-app-with-angular-aspnet-core-and-identityserver-part-2)
+
+Part 3: [Implementing an ASP.NET Core GraphQL API with authorization using GraphQL .NET](https://fullstackmark.com/post/24/build-an-authenticated-graphql-app-with-angular-aspnet-core-and-identityserver-part-3)
+
+Part 4: [Integrating Angular with a backend GraphQL API using Apollo Client ](https://fullstackmark.com/post/25/build-an-authenticated-graphql-app-with-angular-aspnet-core-and-identityserver-part-4)
+
 
 ## Development Environment
 
