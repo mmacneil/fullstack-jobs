@@ -62,9 +62,9 @@ Point your browser to *https://localhost:4200* to access the application.
 
 The `AuthServer` is configured to run at *https://localhost:8787* while the `GraphQL API` is set to *https://localhost:5025*.
 
-If you need to change these locations for your environment there are several spots in the solution you'll must update.
+If you need to change these locations for your environment there are several spots in the solution you must update.
 
-Angular SPA
+*Angular*
  
 - The `RESOURCE_BASE_URI` and `AUTH_BASE_URI` values in [configuration service](https://github.com/mmacneil/fullstack-jobs/blob/master/s`rc/Frontend/Spa/src/app/core/services/config.service.ts). 
 
