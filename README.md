@@ -36,10 +36,15 @@ Use migrations to create the database as follows:
 From the command line use the dotnet CLI to apply the migrations from each project's `Infrastructure` folder.
 1. <code>FullStackJobs.AuthServer.Infrastructure> dotnet ef database update --context PersistedGrantDbContext</code>
 2. <code>FullStackJobs.AuthServer.Infrastructure> dotnet ef database update --context AppIdentityDbContext</code>
+3. <code>FullStackJobs.GraphQL.Infrastructure> dotnet ef database update</code>
    
-#### Build and Run the AuthServer Backend Project
+#### Build and Run the AuthServer and GraphQL API Backend Projects
 
-Build and run the `FullStackJobs.AuthServer` project using your favorite IDE in VS2019, VS Code or VS for Mac.  Optionally, lauch it from the command line using the CLI `dotnet run` command.  Ensure it is running at *https://localhost:8787*.
+##### Visual Studio for Windows
+
+Open the `FullStackJobs.sln` solution file which contains both the [AuthServer](https://github.com/mmacneil/fullstack-jobs/tree/master/src/Backend/FullStackJobs.AuthServer) and [GraphQL API](https://github.com/mmacneil/fullstack-jobs/tree/master/src/Backend/FullStackJobs.GraphQL) projects.  The solution is configured to start both projects so simply `F5` or hit `Start`.
+
+todo: Add instructions for VS Code and CLI.
 
 #### Build and Run the Angular Frontend Project
 
@@ -52,6 +57,16 @@ Build and run the `FullStackJobs.AuthServer` project using your favorite IDE in 
 #### View the App
 
 Point your browser to *https://localhost:4200* to access the application.
+
+#### Host Configuration
+
+The `AuthServer` is configured to run at *https://localhost:8787* while the `GraphQL API` is set to *https://localhost:5025*.
+
+If you need to change these locations for your environment there are several spots in the solution you'll must update.
+
+Angular SPA
+ 
+- The `RESOURCE_BASE_URI` and `AUTH_BASE_URI` values in [configuration service](https://github.com/mmacneil/fullstack-jobs/blob/master/s`rc/Frontend/Spa/src/app/core/services/config.service.ts). 
 
 #### Contact
 
