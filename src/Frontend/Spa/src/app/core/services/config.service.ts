@@ -14,8 +14,6 @@ export class ConfigService {
             case 'employer': return '/employer/jobs';
             case 'applicant': return '/jobs/list';
         }
-
-       return role == 'employer' ? '/employer/jobs' : '';
     }
 
     get authApiURI() {
