@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore;
+﻿using FullStackJobs.AuthServer.Infrastructure.Data;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Testing.Support;
 
 namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
@@ -18,6 +20,7 @@ namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
         {
             webHostBuilder.ConfigureServices(services =>
             {
+                services.AddScoped<IUserRepository, MockUserRepository>();
                 services.AddInMemoryDataAccessServices<TDbContext>();
             });
         }

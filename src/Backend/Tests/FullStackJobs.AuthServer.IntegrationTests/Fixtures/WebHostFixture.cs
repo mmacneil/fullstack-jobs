@@ -9,7 +9,6 @@ using System.Reflection;
 
 namespace FullStackJobs.AuthServer.IntegrationTests.Fixtures
 {
-
     public sealed class WebHostFixture : IDisposable
     {
         private readonly IWebHost _webHost;
