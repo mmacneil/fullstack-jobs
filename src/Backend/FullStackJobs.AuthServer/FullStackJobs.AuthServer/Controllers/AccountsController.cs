@@ -1,9 +1,7 @@
-﻿using IdentityModel;
-using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
+﻿using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using IdentityServer4.Services;
-using System.Linq;
 using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
@@ -11,8 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using FullStackJobs.AuthServer.Models;
 using FullStackJobs.AuthServer.Models.ViewModels;
 using IdentityServer4.Events;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+using FullStackJobs.AuthServer.Infrastructure.Data;
 
 namespace FullStackJobs.AuthServer.Controllers
 {
@@ -20,18 +17,16 @@ namespace FullStackJobs.AuthServer.Controllers
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IIdentityServerInteractionService _interaction;
-        private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly UserManager<AppUser> _userManager;
-        private readonly AppIdentityDbContext _appIdentityDbContext;
+        private readonly IUserRepository _userRepository;
         private readonly IEventService _events;
 
-        public AccountsController(SignInManager<AppUser> signInManager, IIdentityServerInteractionService interaction, IAuthenticationSchemeProvider schemeProvider, UserManager<AppUser> userManager, AppIdentityDbContext appIdentityDbContext, IEventService events)
+        public AccountsController(SignInManager<AppUser> signInManager, IIdentityServerInteractionService interaction, UserManager<AppUser> userManager, AppIdentityDbContext appIdentityDbContext, IEventService events, IUserRepository userRepository)
         {
             _signInManager = signInManager;
             _interaction = interaction;
-            _schemeProvider = schemeProvider;
             _userManager = userManager;
-            _appIdentityDbContext = appIdentityDbContext;
+            _userRepository = userRepository;
             _events = events;
         }
 
@@ -53,13 +48,7 @@ namespace FullStackJobs.AuthServer.Controllers
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("name", user.FullName));
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
             await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", model.Role));
-           
-            // Insert in entity table
-            //var commandText = $"INSERT {model.Role + "s"} (Id,Created,FullName) VALUES (@Id,getutcdate(),@FullName)";
-            //var id = new SqlParameter("@Id", user.Id);
-            //var name = new SqlParameter("@FullName", user.FullName);
-            //await _appIdentityDbContext.Database.ExecuteSqlRawAsync(commandText, id, name);
-
+            await _userRepository.InsertEntity(model.Role, user.Id, user.FullName);
             return Ok(new SignupResponse(user, model.Role));
         }
 
@@ -152,8 +141,8 @@ namespace FullStackJobs.AuthServer.Controllers
         public async Task<IActionResult> Logout(string logoutId)
         {
             await _signInManager.SignOutAsync();
-            var context = await _interaction.GetLogoutContextAsync(logoutId); 
-            return Redirect(context.PostLogoutRedirectUri);            
+            var context = await _interaction.GetLogoutContextAsync(logoutId);
+            return Redirect(context.PostLogoutRedirectUri);
         }
 
         private static string GetUserName(string returnUrl)

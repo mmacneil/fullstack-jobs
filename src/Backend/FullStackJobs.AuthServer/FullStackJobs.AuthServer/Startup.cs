@@ -1,4 +1,5 @@
 using FullStackJobs.AuthServer.Extensions;
+using FullStackJobs.AuthServer.Infrastructure.Data;
 using FullStackJobs.AuthServer.Infrastructure.Data.Identity;
 using FullStackJobs.AuthServer.Infrastructure.Services;
 using IdentityServer4.Services;
@@ -79,6 +80,7 @@ namespace FullStackJobs.AuthServer
             });
 
             services.AddTransient<IProfileService, IdentityClaimsProfileService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
