@@ -2,7 +2,8 @@
     <a mat-button routerLink="/"><img src="assets/images/logo.png" height="28"></a>
     <span class="spacer"></span>  
     <a mat-button routerLink="/signup" *ngIf="!isAuthenticated">Sign up</a>
-    <a mat-button routerLink="/login" *ngIf="!isAuthenticated">Log in</a>   
+    <a mat-button routerLink="/login" *ngIf="!isAuthenticated">Log in</a>  
+    <a mat-button (click)="showAccessToken()" *ngIf="isAuthenticated">Show Access Token</a>   
     <a mat-button routerLink="/employer/jobs" *ngIf="isAuthenticated && authService.role=='employer'">My Job Postings</a>  
     <a mat-button (click)="signout()" *ngIf="isAuthenticated">Signout {{name}}</a>       
 </mat-toolbar>
