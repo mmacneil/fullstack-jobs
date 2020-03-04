@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { AccountModule } from './account/account.module';
 import { CoreModule } from './core/core.module';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
     BrowserAnimationsModule,
     ShellModule,
     SharedModule,
-    CoreModule 
+    CoreModule,
+    GraphQLModule
   ],
   providers: [],
   bootstrap: [AppComponent]
