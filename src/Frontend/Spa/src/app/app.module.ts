@@ -12,6 +12,7 @@ import { ShellModule } from './shell/shell.module';
 import { SharedModule } from './shared/shared.module';
 import { AccountModule } from './account/account.module';
 import { CoreModule } from './core/core.module';
+import { EmployerModule } from './employer/employer.module';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { GraphQLModule } from './graphql.module';
 
@@ -24,6 +25,7 @@ import { GraphQLModule } from './graphql.module';
     BrowserModule,
     HttpClientModule,
     HomeModule,
+    EmployerModule,
     AccountModule,
     AppRoutingModule,
     BrowserAnimationsModule,
