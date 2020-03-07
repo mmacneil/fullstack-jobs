@@ -14,7 +14,7 @@ import { AccountModule } from './account/account.module';
 import { CoreModule } from './core/core.module';
 import { EmployerModule } from './employer/employer.module';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
-import { GraphQLModule } from './graphql.module';
+//import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [
