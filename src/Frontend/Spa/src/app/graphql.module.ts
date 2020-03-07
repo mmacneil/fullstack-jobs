@@ -4,7 +4,7 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { AuthService } from './core/authentication/auth.service';
-//import { ConfigService } from './core/services/config.service';
+import { ConfigService } from './core/services/config.service';
 
 export function createApollo(httpLink: HttpLink, authService: AuthService, configService: ConfigService) {
 
