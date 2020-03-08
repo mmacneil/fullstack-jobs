@@ -5,7 +5,8 @@ import { JobSummary } from '../../core/models/job-summary';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { JobServiceGQL } from '../../core/graphql/services/job.service.gql';
+import { EmployerJobsGQL } from '../../core/graphql/queries/employer-jobs.gql';
+import { ConfigService } from '../../core/services/config.service';
 
 @Component({
   selector: 'app-jobs',
@@ -14,14 +15,14 @@ import { JobServiceGQL } from '../../core/graphql/services/job.service.gql';
 })
 export class JobsComponent implements OnInit {
 
-  constructor(private jobServiceGQL: JobServiceGQL, private dialog: MatDialog) { }
-  
+  constructor(private configService: ConfigService, private employerJobsGQL: EmployerJobsGQL, private dialog: MatDialog) { }
+
   busy = false;
   jobs: JobSummary[];
 
   ngOnInit() {
-    this.busy = true;    
-    this.jobServiceGQL.getEmployerJobs().pipe(finalize(() => {
+    this.busy = true;
+    this.employerJobsGQL.fetch(null, { fetchPolicy: 'network-only' }).pipe(finalize(() => {
       this.busy = false;
     })).subscribe(result => {
       this.jobs = result.data['employerJobs'];
