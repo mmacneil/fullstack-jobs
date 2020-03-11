@@ -8,8 +8,8 @@ import gql from 'graphql-tag';
 })
 export class CreateJobGQL extends Mutation {
     document = gql`
-    mutation ($input:  CreateJobInput!) {
-        createJob(input: $input){
+    mutation ($input:  CreateJobInput) {
+        createJob(input: {}){
             ...jobFields
         }                    
      } 
