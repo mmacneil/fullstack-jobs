@@ -2,7 +2,10 @@
     <mat-card fxFlex="850px" fxFlex.xs="100%">
         <h1>My Job Postings</h1>
         <p *ngIf="jobs?.length === 0">Looks like you haven't posted any jobs yet - post one now!</p>
-        <a mat-raised-button (click)="createJob()" [disabled]="busy">Post a new job</a>
+        <div fxLayout="row" fxLayoutAlign="center">
+            <a mat-raised-button (click)="createJob()" [disabled]="busy">Post a new job</a>
+        </div>
+
         <mat-nav-list>
             <a mat-list-item *ngFor="let job of jobs" [routerLink]="['/employer', 'job', job.id, 'manage', 'basics']">
                 {{ job.position + ' [' + job.status +' ~' + job.modified +']' }}
