@@ -4,7 +4,7 @@
         <p *ngIf="jobs?.length === 0">Looks like you haven't posted any jobs yet - post one now!</p>
         <div fxLayout="row" fxLayoutAlign="center">
             <a mat-raised-button (click)="createJob()" [disabled]="busy">
-                <mat-icon>mic</mat-icon>
+                <mat-icon>post_add</mat-icon>
                 Post a new job
             </a>
         </div>
