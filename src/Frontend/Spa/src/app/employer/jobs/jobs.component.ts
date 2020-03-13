@@ -20,13 +20,14 @@ export class JobsComponent implements OnInit {
   jobs: JobSummary[];
 
   createJob() {
-    this.createJobGQL.mutate().subscribe((result: { data: { [x: string]: any; }; }) => {     
+    this.createJobGQL.mutate().subscribe((result: { data: { [x: string]: any; }; }) => {
       let job = result.data['createJob'];
-      //this.router.navigate(['/employer', 'job', job.id, 'manage', 'basics']);
+      this.router.navigate(['/employer', 'job', job.id, 'manage', 'basics']);
     });
   }
 
   ngOnInit() {
+
     this.busy = true;
     this.employerJobsGQL.fetch(null, { fetchPolicy: 'network-only' }).pipe(finalize(() => {
       this.busy = false;
@@ -38,5 +39,6 @@ export class JobsComponent implements OnInit {
         data: { title: 'Oops!', message: error }
       });
     });
+
   }
 }
