@@ -1,0 +1,20 @@
+<form fxLayout="column wrap" fxLayoutAlign="center start" fxLayoutGap="10px">
+
+    <h2>Add tags to increase the visibility of your job</h2>
+    <p>Use keywords describing the tech stack, industry etc.</p>
+    <div class="add-tag-container">
+        <input type="text" [(ngModel)]="tag" name="tag" autoFocus/>
+        <button type="button" (click)="addTag()">Add Tag</button>
+
+        <div class="tag-container-list">
+            <h3>Tags:</h3>
+            <mat-chip-list>
+                <mat-chip *ngFor="let tag of job.tags">
+                    {{tag.name}}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+    </div>
+
+    <button type="button" mat-raised-button color="primary" (click)="next()">Next</button>
+</form>

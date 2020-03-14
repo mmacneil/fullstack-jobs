@@ -1,0 +1,11 @@
+<form fxLayout="column wrap" fxLayoutAlign="center start" fxLayoutGap="10px">
+    <h2>Describe any specific requirements or qualifications</h2>
+    <ckeditor [editor]="requirementsEditor" [ngModel]="job?.requirements" (ngModelChange)="job.requirements = $event"
+        name="requirements"></ckeditor>
+
+    <h2>How can candidates apply?</h2>
+    <ckeditor [editor]="instructionsEditor" [ngModel]="job?.applicationInstructions" (ngModelChange)="job.applicationInstructions = $event"
+        name="instructions"></ckeditor>
+
+    <button type="button" mat-raised-button color="primary" (click)="next()">Next</button>
+</form>

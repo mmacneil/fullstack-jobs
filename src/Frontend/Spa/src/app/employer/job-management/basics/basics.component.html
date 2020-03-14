@@ -1,0 +1,27 @@
+<form fxLayout="column wrap" fxLayoutAlign="center start" fxLayoutGap="10px">
+
+  <h2>What are the basic details of your position?</h2>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Position" [ngModel]="job?.position" (ngModelChange)="job.position = $event"
+      name="position" autoFocus>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Company" [ngModel]="job?.company" (ngModelChange)="job.company = $event"
+      name="company">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Location" [ngModel]="job?.location" (ngModelChange)="job.location = $event"
+      name="location">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" numbersOnly placeholder="Annual Salary" [ngModel]="job?.annualBaseSalary"
+      (ngModelChange)="job.annualBaseSalary = $event" name="annualBaseSalary">
+  </mat-form-field>
+
+  <button type="button" mat-raised-button color="primary" (click)="next()">Next</button>
+
+</form>

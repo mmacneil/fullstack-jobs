@@ -1,0 +1,29 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="90%" fxFlex.xs="100%">
+    <mat-sidenav-container>
+      <mat-sidenav mode="side" opened>
+
+        <mat-nav-list>
+          <a mat-list-item routerLinkActive="active-tab"
+            [routerLink]="['/employer', 'job', id, 'manage', 'basics']">Basics</a>
+          <a mat-list-item routerLinkActive="active-tab"
+            [routerLink]="['/employer', 'job', id, 'manage', 'description']">Description</a>
+          <a mat-list-item routerLinkActive="active-tab"
+            [routerLink]="['/employer', 'job', id, 'manage', 'application']">Application</a>
+          <a mat-list-item routerLinkActive="active-tab"
+            [routerLink]="['/employer', 'job', id, 'manage', 'tags']">Tags</a>
+          <a mat-list-item routerLinkActive="active-tab"
+            [routerLink]="['/employer', 'job', id, 'manage', 'publish']">Publish</a>
+        </mat-nav-list>
+
+      </mat-sidenav>
+
+      <mat-sidenav-content style="padding:1.25rem;height:100%">
+        <div class="spinner-container" *ngIf="busy">
+          <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+        </div>
+        <router-outlet (activate)='onActivate($event)' *ngIf="job"></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </mat-card>
+</section>

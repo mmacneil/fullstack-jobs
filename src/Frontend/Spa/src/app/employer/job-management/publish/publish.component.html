@@ -1,0 +1,16 @@
+<form fxLayout="column wrap" fxLayoutAlign="center start" fxLayoutGap="20px">
+
+    <h1>Almost done!</h1>
+    <h2>Publish your job when it's ready to go live</h2>
+    <p>If you've completed all the sections, set the status to <em>Published</em> to ensure your posting is visible to the public.</p>
+    <mat-form-field>
+        <mat-label>Post Status</mat-label>
+        <mat-select [(ngModel)]="job.status" name="status">
+            <mat-option *ngFor="let status of statuses" [value]="status.value">
+                {{status.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button type="button" mat-raised-button color="primary" (click)="save()">Save</button>
+</form>

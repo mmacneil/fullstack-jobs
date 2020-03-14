@@ -1,0 +1,13 @@
+<form fxLayout="column wrap" fxLayoutAlign="center start" fxLayoutGap="10px">
+  <h2>Write a description for your position</h2>
+
+  <ckeditor [editor]="descriptionEditor" [ngModel]="job?.description" (ngModelChange)="job.description = $event"
+    name="description"></ckeditor>
+
+  <h2>Describe the position's responsibilities</h2>
+
+  <ckeditor [editor]="responsibilitiesEditor" [ngModel]="job?.responsibilities"
+    (ngModelChange)="job.responsibilities = $event" name="responsibilities"></ckeditor>  
+
+  <button type="button" mat-raised-button color="primary" (click)="next()">Next</button>
+</form>
