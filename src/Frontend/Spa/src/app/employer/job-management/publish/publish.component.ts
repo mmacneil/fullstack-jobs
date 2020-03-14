@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseJobManagementComponent } from '../base-job-management.component';
-import { Status } from '../../../shared/models/status';
+import { Status } from '../../../core/models/status';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 
@@ -16,8 +16,22 @@ export class PublishComponent extends BaseJobManagementComponent {
     super();
   }
 
-  save() {   
-    this.jobServiceGQL.updateJob(this.job).subscribe(
+  save() {
+    this.updateJobGQL.mutate({
+      input: {
+        id: this.job.id,
+        company: this.job.company,
+        position: this.job.position,
+        location: this.job.location,
+        annualBaseSalary: this.job.annualBaseSalary,
+        description: this.job.description,
+        responsibilities: this.job.responsibilities,
+        requirements: this.job.requirements,
+        applicationInstructions: this.job.applicationInstructions,
+        status: this.job.status,
+        tags: this.job.tags
+      }
+    }).subscribe(
       result => {
         this.router.navigateByUrl('/employer/jobs');
       }, (error: any) => {
@@ -32,6 +46,6 @@ export class PublishComponent extends BaseJobManagementComponent {
   statuses: Status[] = [
     { value: 'DRAFT', name: 'Draft' },
     { value: 'PUBLISHED', name: 'Published' },
-    { value: 'DELETED', name: 'Deleted'}
+    { value: 'DELETED', name: 'Deleted' }
   ];
 }

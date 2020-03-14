@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseJobManagementComponent } from '../base-job-management.component';
-import { Tag } from '../../../shared/models/tag';
+import { Tag } from '../../../core/models/tag';
 
 @Component({
   selector: 'app-tags',

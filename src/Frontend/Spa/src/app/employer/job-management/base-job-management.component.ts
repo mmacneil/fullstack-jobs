@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Job } from '../../core/models/job';
 import { AppInjector } from '../../app-injector.service';
-import { JobServiceGQL } from '../../shared/graphql/services/job.service.gql';
+import { UpdateJobGQL } from '../../core/graphql/mutations/update-job.gql';
+import { EmployerJobGQL } from '../../core/graphql/queries/employer-job.gql';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +13,8 @@ export abstract class BaseJobManagementComponent {
 
     protected busy: Boolean;
     protected router: Router;
-    protected jobServiceGQL: JobServiceGQL;
+    protected updateJobGQL : UpdateJobGQL;
+    protected  employerJobGQL:  EmployerJobGQL;
     protected job: Job;
 
     constructor() {
@@ -20,6 +22,6 @@ export abstract class BaseJobManagementComponent {
         // Manually retrieve the dependencies from the injector so that subclass ctors contain no dependencies that must be passed in from child    
         const injector = AppInjector.getInjector();
         this.router = injector.get(Router);
-        this.jobServiceGQL = injector.get(JobServiceGQL);
+        this.updateJobGQL = injector.get(UpdateJobGQL);
     }
 }

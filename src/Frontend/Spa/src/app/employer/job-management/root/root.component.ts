@@ -25,7 +25,7 @@ export class RootComponent extends BaseJobManagementComponent implements OnInit 
 
     if (!this.job) {
       this.busy = true;
-      this.jobServiceGQL.getEmployerJob(+this.activatedRoute.snapshot.paramMap.get("id")).pipe(finalize(() => {
+      this.employerJobGQL.fetch({id: +this.activatedRoute.snapshot.paramMap.get("id")}, {fetchPolicy: 'network-only'}).pipe(finalize(() => {
         this.busy = false;
       })).subscribe(result => {
         this.job = result.data.job;
