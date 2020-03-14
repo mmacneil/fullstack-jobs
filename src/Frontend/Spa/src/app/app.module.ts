@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,7 @@ import { CoreModule } from './core/core.module';
 import { EmployerModule } from './employer/employer.module';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { GraphQLModule } from './graphql.module';
+import { AppInjector } from './app-injector.service';
 
 @NgModule({
   declarations: [
@@ -37,4 +38,7 @@ import { GraphQLModule } from './graphql.module';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  // https://devblogs.microsoft.com/premier-developer/angular-how-to-simplify-components-with-typescript-inheritance/#comment-116
+  constructor(injector: Injector) { AppInjector.setInjector(injector); }
+}

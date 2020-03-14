@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 })
 export abstract class BaseJobManagementComponent {
 
-    protected busy: Boolean;
     protected router: Router;
     protected updateJobGQL : UpdateJobGQL;
     protected  employerJobGQL:  EmployerJobGQL;
-    protected job: Job;
+    public busy: Boolean;
+    public job: Job;
 
     constructor() {
         // https://devblogs.microsoft.com/premier-developer/angular-how-to-simplify-components-with-typescript-inheritance/
