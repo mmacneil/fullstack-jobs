@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 export abstract class BaseJobManagementComponent {
 
     protected router: Router;
-    protected updateJobGQL : UpdateJobGQL;
-    protected  employerJobGQL:  EmployerJobGQL;
+    protected updateJobGQL: UpdateJobGQL;
+    protected employerJobGQL: EmployerJobGQL;
     public busy: Boolean;
     public job: Job;
 
@@ -23,5 +23,6 @@ export abstract class BaseJobManagementComponent {
         const injector = AppInjector.getInjector();
         this.router = injector.get(Router);
         this.updateJobGQL = injector.get(UpdateJobGQL);
+        this.employerJobGQL = injector.get(EmployerJobGQL);
     }
 }
