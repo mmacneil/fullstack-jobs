@@ -3,17 +3,17 @@
     <mat-sidenav-container>
       <mat-sidenav mode="side" opened>
 
-        <mat-nav-list>
+        <mat-nav-list *ngIf="job">
           <a mat-list-item routerLinkActive="active-tab"
-            [routerLink]="['/employer', 'job', id, 'manage', 'basics']">Basics</a>
+            [routerLink]="['/employer', 'job', job.id, 'manage', 'basics']">Basics</a>
           <a mat-list-item routerLinkActive="active-tab"
-            [routerLink]="['/employer', 'job', id, 'manage', 'description']">Description</a>
+            [routerLink]="['/employer', 'job', job.id, 'manage', 'description']">Description</a>
           <a mat-list-item routerLinkActive="active-tab"
-            [routerLink]="['/employer', 'job', id, 'manage', 'application']">Application</a>
+            [routerLink]="['/employer', 'job', job.id, 'manage', 'application']">Application</a>
           <a mat-list-item routerLinkActive="active-tab"
-            [routerLink]="['/employer', 'job', id, 'manage', 'tags']">Tags</a>
+            [routerLink]="['/employer', 'job', job.id, 'manage', 'tags']">Tags</a>
           <a mat-list-item routerLinkActive="active-tab"
-            [routerLink]="['/employer', 'job', id, 'manage', 'publish']">Publish</a>
+            [routerLink]="['/employer', 'job', job.id, 'manage', 'publish']">Publish</a>
         </mat-nav-list>
 
       </mat-sidenav>
