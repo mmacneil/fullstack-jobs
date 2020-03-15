@@ -22,10 +22,9 @@ export class RootComponent extends BaseJobManagementComponent implements OnInit 
   }
 
   ngOnInit() {
-
     if (!this.job) {
       this.busy = true;
-      this.employerJobGQL.fetch({id: +this.activatedRoute.snapshot.paramMap.get("id")}, {fetchPolicy: 'network-only'}).pipe(finalize(() => {
+      this.employerJobGQL.fetch({ id: +this.activatedRoute.snapshot.paramMap.get("id") }, { fetchPolicy: 'network-only' }).pipe(finalize(() => {
         this.busy = false;
       })).subscribe(result => {
         this.job = result.data.job;
