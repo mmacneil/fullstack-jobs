@@ -1,0 +1,5 @@
+<div fxLayout="column" fxLayoutAlign="center">
+    <a mat-flat-button color="primary" (click)="apply()" routerLink=".">Apply Now</a>
+    <p class="applicant-count">
+        {{applicantCount == 0 ? '' : applicantCount + ' applicant' + (applicantCount == 1 ? '' : 's') }}</p>
+</div>

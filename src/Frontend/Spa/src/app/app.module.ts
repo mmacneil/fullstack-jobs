@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /* Module Imports */
 import { HomeModule } from './home/home.module';
+import { JobsModule } from './jobs/jobs.module';
 import { ShellModule } from './shell/shell.module';
 import { SharedModule } from './shared/shared.module';
 import { AccountModule } from './account/account.module';
@@ -26,6 +27,7 @@ import { AppInjector } from './app-injector.service';
     BrowserModule,
     HttpClientModule,
     HomeModule,
+    JobsModule,
     EmployerModule,
     AccountModule,
     AppRoutingModule,

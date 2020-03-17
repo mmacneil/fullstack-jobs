@@ -1,0 +1,30 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex="50%" fxFlex.xs="100%">
+        <mat-card-title>Latest Job Postings</mat-card-title>
+
+        <div class="spinner-container" *ngIf="busy">
+            <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+        </div>
+
+        <div *ngIf="jobs?.length==0">
+            <p>No jobs were found. Please <a [routerLink]="['/signup']">
+                    sign up</a> to post or apply for one now!</p>
+        </div>
+
+        <div *ngFor="let job of jobs" class="flex-item">
+            <img src="../../../assets/images/{{job.icon}}" width="70" />
+            <ul>
+                <li><span class="company">{{job.company}}</span></li>
+                <li>
+                    <a class="position" [routerLink]="['/jobs', job.id, 'details']">{{job.position}}</a>
+                </li>
+                <li *ngIf="job.location"><span class="location">{{"🌏" + job.location}}</span></li>
+            </ul>
+
+            <div fxFlex fxLayoutAlign="end center" class="apply-button-container"
+                *ngIf="authService.role==='applicant'">
+                <application-button [jobId]="job.id" [applicantCount]="job.applicantCount"></application-button>
+            </div>
+        </div>
+    </mat-card>
+</section>

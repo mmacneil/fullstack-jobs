@@ -1,0 +1,26 @@
+.flex-item {
+    display:flex;
+    align-items: center;
+    margin-bottom:1.5rem;
+    border-bottom:1px solid #eee
+}
+.flex-item img{
+    flex-grow:0;
+    flex-shrink:0;
+}
+
+.flex-item ul {
+    margin-left:.25rem;
+    list-style: none;
+    padding-left: 0;
+}
+
+.flex-item a {
+    margin-left:1.35rem
+}
+
+.company {font-size:1.1em}
+a.position {font-weight:bold;margin:0 !important}
+.location  {font-size:.85em;color:#909090;opacity:0.8}
+
+.apply-button-container {padding-right:1.15rem}
