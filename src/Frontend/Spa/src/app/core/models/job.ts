@@ -13,6 +13,6 @@ export interface Job {
   tags: Tag[];
   modified: string;
   status: string;
-  image: string;
+  icon: string;
   applicantCount: number;
 }

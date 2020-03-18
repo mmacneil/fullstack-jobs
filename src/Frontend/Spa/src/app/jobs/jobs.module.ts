@@ -5,11 +5,11 @@ import { JobsRoutingModule } from './jobs-routing.module';
 import { MaterialModule } from '../material/material.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from '../shared/shared.module';
-import { ListComponent } from './list/list.component'; 
-
+import { ListComponent } from './list/list.component';
+import { DetailsComponent } from './details/details.component'; 
 
 @NgModule({
-  declarations: [ListComponent],
+  declarations: [ListComponent, DetailsComponent],
   exports: [ListComponent],
   imports: [
     CommonModule,

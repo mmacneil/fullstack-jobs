@@ -1,0 +1,51 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex="50%" fxFlex.xs="100%" *ngIf="job">
+
+        <mat-card-content fxLayout="column">
+
+            <div class="header">
+                <img height="72" width="72" src="../../../assets/images/{{job.icon}}" />
+                <div>
+                    <h2>{{job.position}}</h2>
+                    <p>
+                        {{(job.company && job.location ? job.company + ", " + job.location : job.company ? job.company : job.location ? job.location : "")}}
+                    </p>
+                </div>
+                <hr>
+            </div>
+
+            <section class="section" *ngIf="job.description">
+                <h3>Description</h3>
+                <div [innerHTML]="job.description"></div>
+            </section>
+
+            <section class="section" *ngIf="job.responsibilities">
+                <h3>Responsibilities</h3>
+                <div [innerHTML]="job.responsibilities"></div>
+            </section>
+
+            <section class="section" *ngIf="job.requirements">
+                <h3>Requirements</h3>
+                <div [innerHTML]="job.requirements"></div>
+            </section>
+
+            <section class="section" *ngIf="job.applicationInstructions">
+                <h3>How to apply?</h3>
+                <div [innerHTML]="job.applicationInstructions"></div>
+            </section>
+
+            <section class="section" *ngIf="job.tags">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let tag of job.tags">{{tag.name}}</mat-chip>
+                </mat-chip-list>
+            </section>
+
+            <div fxFlex="50" fxLayoutAlign="center">
+                <application-button [jobId]="job.id" [applicantCount]="job.applicantCount"
+                    *ngIf="authService.role==='applicant'"></application-button>
+            </div>
+
+        </mat-card-content>
+
+    </mat-card>
+</section>
