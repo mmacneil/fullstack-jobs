@@ -46,7 +46,7 @@ From the command line use the dotnet CLI to apply the migrations from each proje
 
 ##### Visual Studio for Windows
 
-Open the `FullStackJobs.sln` solution file which contains both the [AuthServer](https://github.com/mmacneil/fullstack-jobs/tree/master/src/Backend/FullStackJobs.AuthServer) and [GraphQL API](https://github.com/mmacneil/fullstack-jobs/tree/master/src/Backend/FullStackJobs.GraphQL) projects.  The solution is configured to start up both projects so simply start the solution in the debugger or using the CLI `dotnet run` command to run them individually.
+Open the `FullStackJobs.sln` solution file which contains both the [AuthServer](https://github.com/mmacneil/fullstack-jobs/tree/master/src/Backend/FullStackJobs.AuthServer) and [GraphQL API](https://github.com/mmacneil/fullstack-jobs/tree/master/src/Backend/FullStackJobs.GraphQL) projects.  You must configure the solution to start up both projects.  Once complete, start the solution in the debugger or use the CLI `dotnet run` command to run them individually.
 
 *todo*: Add instructions for VS Code.
 
