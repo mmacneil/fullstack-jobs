@@ -11,6 +11,7 @@ import { HomeModule } from './home/home.module';
 import { JobsModule } from './jobs/jobs.module';
 import { ShellModule } from './shell/shell.module';
 import { SharedModule } from './shared/shared.module';
+import { ApplicantModule } from './applicant/applicant.module';
 import { AccountModule } from './account/account.module';
 import { CoreModule } from './core/core.module';
 import { EmployerModule } from './employer/employer.module';
@@ -28,6 +29,7 @@ import { AppInjector } from './app-injector.service';
     HttpClientModule,
     HomeModule,
     JobsModule,
+    ApplicantModule,
     EmployerModule,
     AccountModule,
     AppRoutingModule,
