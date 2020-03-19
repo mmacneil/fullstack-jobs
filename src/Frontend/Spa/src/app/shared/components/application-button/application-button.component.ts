@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-//import { JobServiceGQL } from '../../graphql/services/job.service.gql';
+import { CreateApplicationGQL } from '../../../core/graphql/mutations/create-application.gql';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../dialog/dialog.component';
 import { Router } from '@angular/router';
@@ -15,11 +15,11 @@ export class ApplicationButtonComponent {
   @Input() applicantCount: number;
 
   label: string;
-  
-  constructor(private router: Router, private dialog: MatDialog/*, private jobServiceGQL: JobServiceGQL*/) { }
+
+  constructor(private router: Router, private dialog: MatDialog, private createApplicationGQL: CreateApplicationGQL) { }
 
   apply() {
-    /*this.jobServiceGQL.createApplication(this.jobId).subscribe(
+    this.createApplicationGQL.mutate({ id: this.jobId }).subscribe(
       result => {
         this.router.navigateByUrl('applicant/confirmation', { state: { data: result.data['createApplication'] } });
       }, (error: any) => {
@@ -28,6 +28,6 @@ export class ApplicationButtonComponent {
           data: { title: 'Oops!', message: error }
         });
       }
-    );*/
+    );
   }
 }
