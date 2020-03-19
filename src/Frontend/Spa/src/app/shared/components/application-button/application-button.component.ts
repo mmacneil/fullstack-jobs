@@ -19,7 +19,11 @@ export class ApplicationButtonComponent {
   constructor(private router: Router, private dialog: MatDialog, private createApplicationGQL: CreateApplicationGQL) { }
 
   apply() {
-    this.createApplicationGQL.mutate({ id: this.jobId }).subscribe(
+    this.createApplicationGQL.mutate({
+      input: {
+        jobId: this.jobId
+      }
+    }).subscribe(
       result => {
         this.router.navigateByUrl('applicant/confirmation', { state: { data: result.data['createApplication'] } });
       }, (error: any) => {
