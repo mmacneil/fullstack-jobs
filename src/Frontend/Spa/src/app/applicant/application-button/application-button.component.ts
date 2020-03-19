@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { CreateApplicationGQL } from '../../../core/graphql/mutations/create-application.gql';
+import { CreateApplicationGQL } from '../../core/graphql/mutations/create-application.gql';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../../dialog/dialog.component';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { Router } from '@angular/router';
 
 @Component({
